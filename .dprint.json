@@ -1,0 +1,31 @@
+{
+  "$schema": "https://dprint.dev/schemas/v0.json",
+  "lineWidth": 80,
+  "indentWidth": 4,
+  "newLineKind": "lf",
+  "useTabs": false,
+  "typescript": {
+    "semiColons": "asi",
+    "quoteStyle": "preferSingle",
+    "arrowFunction.useParentheses": "force",
+    "binaryExpression.linePerExpression": true,
+    "memberExpression.linePerExpression": true
+  },
+  "json": {
+    "indentWidth": 2
+  },
+  "malva": {
+    "indentWidth": 2,
+    "quotes": "preferDouble"
+  },
+  "markup": {
+    "indentWidth": 2
+  },
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.95.11.wasm",
+    "https://plugins.dprint.dev/json-0.20.0.wasm",
+    "https://plugins.dprint.dev/g-plane/malva-v0.14.3.wasm",
+    "https://plugins.dprint.dev/g-plane/markup_fmt-v0.23.3.wasm"
+  ],
+  "excludes": [".vite", "example", "out", "src/renderer/style.css"]
+}

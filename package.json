@@ -1,0 +1,51 @@
+{
+  "name": "moyurd",
+  "productName": "moyurd",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".vite/build/main.js",
+  "scripts": {
+    "predev": "npm run fmt:run && npm run lint:check",
+    "dev": "electron-forge start",
+    "forge:package": "electron-forge package",
+    "forge:make": "electron-forge make",
+    "forge:publish": "electron-forge publish",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix",
+    "fmt:check": "dprint check",
+    "fmt:run": "dprint fmt"
+  },
+  "keywords": [],
+  "author": "Horace.Liu",
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.8.2",
+    "@electron-forge/maker-deb": "^7.8.2",
+    "@electron-forge/maker-rpm": "^7.8.2",
+    "@electron-forge/maker-squirrel": "^7.8.2",
+    "@electron-forge/maker-zip": "^7.8.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.2",
+    "@electron-forge/plugin-fuses": "^7.8.2",
+    "@electron-forge/plugin-vite": "^7.8.2",
+    "@electron/fuses": "^2.0.0",
+    "@eslint/js": "^9.33.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/electron-squirrel-startup": "^1.0.2",
+    "electron": "37.2.5",
+    "eslint": "^9.33.0",
+    "eslint-plugin-solid": "^0.14.5",
+    "globals": "^16.3.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.0.6",
+    "vite-plugin-solid": "^2.11.8"
+  },
+  "dependencies": {
+    "@lingo-reader/epub-parser": "^0.3.4",
+    "@solidjs/router": "^0.15.3",
+    "electron-squirrel-startup": "^1.0.1",
+    "solid-js": "^1.9.8",
+    "zod": "^4.1.9"
+  }
+}
