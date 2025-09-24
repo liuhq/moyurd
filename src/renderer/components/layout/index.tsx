@@ -52,25 +52,25 @@ const Layout: ParentComponent = (props) => {
             }
         }, cleanerId)
         eventBus.on('commandline', (show) => {
-            if (show === undefined) {
+            if (show == undefined) {
                 eventBus.emit('error', [
                     'MISSING_ARGUMENT',
                     'commandline <true | false>',
                 ])
                 return
             }
-            if (show === showCommandLine() || showSearchLine()) return
+            if (show == showCommandLine() || showSearchLine()) return
             setShowCommandLine(show)
         }, cleanerId)
         eventBus.on('searchline', (show) => {
-            if (show === undefined) {
+            if (show == undefined) {
                 eventBus.emit('error', [
                     'MISSING_ARGUMENT',
                     'searchline <true | false>',
                 ])
                 return
             }
-            if (show === showSearchLine() || showCommandLine()) return
+            if (show == showSearchLine() || showCommandLine()) return
             setShowSearchLine(show)
         }, cleanerId)
         eventBus.on('error', (msg) => {
@@ -93,7 +93,7 @@ const Layout: ParentComponent = (props) => {
     createEffect(on(command, (cmd) => {
         if (!cmd) return
         if (!cmd[0]) return
-        if (cmd[0] === 'commandline' || cmd[0] === 'searchline') {
+        if (cmd[0] == 'commandline' || cmd[0] == 'searchline') {
             eventBus.emit('error', [
                 'COMMAND_NOT_FOUND',
                 `${cmd[0]} is an internal command`,
@@ -114,7 +114,7 @@ const Layout: ParentComponent = (props) => {
                         <Commandline commit={setCommand} />
                     </Match>
                     {
-                        /* <Match when={mode() === 'keymap'}>
+                        /* <Match when={mode() == 'keymap'}>
                         <KeymapHelp />
                     </Match> */
                     }

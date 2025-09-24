@@ -32,7 +32,7 @@ const Reading: Component = () => {
 
     onMount(() => {
         eventBus.on('toc', (show) => {
-            if (show === undefined) {
+            if (show == undefined) {
                 eventBus.emit('error', [
                     'MISSING_ARGUMENT',
                     'toc <true | false>',
@@ -43,7 +43,7 @@ const Reading: Component = () => {
         }, cleanerId)
         eventBus.on('scrollup', (n) => {
             requestAnimationFrame(() => {
-                if (n === 'top') {
+                if (n == 'top') {
                     containerRef!.scrollTo({
                         top: 0,
                         behavior: 'smooth',
@@ -78,7 +78,7 @@ const Reading: Component = () => {
         }, cleanerId)
         eventBus.on('scrolldown', (n) => {
             requestAnimationFrame(() => {
-                if (n === 'bottom') {
+                if (n == 'bottom') {
                     containerRef!.scrollTo({
                         top: containerRef!.scrollHeight,
                         behavior: 'smooth',

@@ -85,7 +85,7 @@ const Content: Component<
                 'recent',
                 produce((rnt) => {
                     const currentBook = rnt.find((b) =>
-                        b.path === untrack(filePath)
+                        b.path == untrack(filePath)
                     )
                     const currentChapterCopy = untrack(() =>
                         props.currentChapter
@@ -111,7 +111,7 @@ const Content: Component<
         eventBus.on('loadnext', async () => {
             const tocFlat = untrack(() => props.tocFlat)
             const currentChapter = untrack(() => props.currentChapter)
-            if (currentChapter === '') {
+            if (currentChapter == '') {
                 untrack(() => props.setCurrentChapter)(tocFlat.items[0].id)
                 return
             }
@@ -127,7 +127,7 @@ const Content: Component<
         eventBus.on('loadprev', async () => {
             const tocFlat = untrack(() => props.tocFlat)
             const currentChapter = untrack(() => props.currentChapter)
-            if (currentChapter === '') return
+            if (currentChapter == '') return
             const index = tocFlat.idMap.get(currentChapter) ?? 0
             const prevIndex = index - 1
             if (prevIndex < 0) {

@@ -5,7 +5,7 @@ import { useEventBus } from '../context/EventBusProvider'
 const normalizeKeySeq = (keySeq: string) => {
     const parts = keySeq
         .split('+')
-        .map((p) => p === ' ' ? p : p.trim().toLowerCase())
+        .map((p) => p == ' ' ? p : p.trim().toLowerCase())
         .sort()
     return [...new Set(parts)].join('+')
 }

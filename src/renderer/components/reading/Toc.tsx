@@ -10,48 +10,9 @@ import {
     untrack,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import type { EpubTocFlat, EpubTocItem } from '../../../lib/epub-parser'
+import type { EpubTocFlat } from '../../../lib/epub-parser'
 import { useEventBus } from '../../context/EventBusProvider'
 import { registerKeymap } from '../../hooks/useKeybind'
-
-const Dpf: Component<
-    {
-        item: EpubTocItem
-        currentChapter: string
-        setCurrentChapter: Setter<string>
-    }
-> = (props) => (
-    <>
-        <li
-            class='select-none'
-            onClick={(e) => {
-                e.stopPropagation()
-                props.setCurrentChapter(props.item.id)
-            }}
-        >
-            <p
-                class={props.item.id === props.currentChapter
-                    ? 'bg-toc-dim'
-                    : ''}
-            >
-                {props.item.label}
-            </p>
-            {props.item.children && props.item.children.length > 0 && (
-                <ul>
-                    <Index each={props.item.children}>
-                        {(child) => (
-                            <Dpf
-                                item={child()}
-                                currentChapter={props.currentChapter}
-                                setCurrentChapter={props.setCurrentChapter}
-                            />
-                        )}
-                    </Index>
-                </ul>
-            )}
-        </li>
-    </>
-)
 
 const Toc: Component<
     {
@@ -66,7 +27,6 @@ const Toc: Component<
 
     let currentRef: HTMLLIElement
     const targetRef: HTMLLIElement[] = []
-    let containerRef: HTMLDivElement
 
     onMount(() => {
         /// register shortcut keys
@@ -77,13 +37,16 @@ const Toc: Component<
             block: 'center',
         })
 
-        setTarget(props.toc.idMap.get(props.currentChapter) ?? 0)
+        const currentChapterIndex = props.toc.idMap.get(props.currentChapter)
+        if (currentChapterIndex && currentChapterIndex > 0) {
+            setTarget(currentChapterIndex)
+        }
 
         eventBus.on(
             'tocprev',
             (n) =>
                 setTarget((i) => {
-                    if (typeof n == 'string') return 0
+                    if (typeof n == 'string' && n == 'top') return 0
                     return Math.max(i - (n ?? 1), 0)
                 }),
             cleanerId,
@@ -93,12 +56,12 @@ const Toc: Component<
             (n) =>
                 setTarget((i) => {
                     const last = untrack(() => props.toc.items.length - 1)
-                    if (typeof n == 'string') return last
+                    if (typeof n == 'string' && n == 'bottom') return last
                     return Math.min(i + (n ?? 1), last)
                 }),
             cleanerId,
         )
-        eventBus.on('tocSelect', () => {
+        eventBus.on('tocselect', () => {
             const t = untrack(target)
             const p = untrack(() => props)
             p.setCurrentChapter(p.toc.items.at(t)?.id ?? '')
@@ -116,17 +79,14 @@ const Toc: Component<
     })
 
     const itemStyle = {
-        current: 'bg-inverse-surface text-inverse-fg',
-        select: 'bg-accent text-inverse-fg',
+        current: 'bg-accent text-inverse-fg',
+        select: 'bg-inverse-surface text-inverse-fg',
     }
 
     return (
         <Portal>
             <div class='absolute top-0 left-0 w-full h-full bg-panal-mask z-30 flex place-content-center items-center'>
-                <div
-                    ref={containerRef!}
-                    class='w-4/5 h-4/5 py-4 pl-4 pr-1 bg-surface'
-                >
+                <div class='w-4/5 h-4/5 py-4 pl-4 pr-1 bg-surface'>
                     <Show when={props.toc} fallback={<div>Loading...</div>}>
                         <ul class='w-full h-full pr-1 overflow-auto'>
                             <Index each={props.toc.items}>
@@ -150,10 +110,10 @@ const Toc: Component<
                                                     .toc
                                                     .idMap
                                                     .get(item().id) ?? 0)
-                                                    === target()
+                                                    == target()
                                                 ? itemStyle.select
                                                 : item().id
-                                                        === props.currentChapter
+                                                        == props.currentChapter
                                                 ? itemStyle.current
                                                 : ''
                                         }`}
