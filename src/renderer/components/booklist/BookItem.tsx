@@ -1,5 +1,5 @@
 import { A } from '@solidjs/router'
-import type { Component } from 'solid-js'
+import { type Component, type Ref } from 'solid-js'
 import type { BookCache } from '../../../lib/load-data'
 import { setFilePath } from '../../store'
 
@@ -23,12 +23,19 @@ const formatProgress = (progress: number) => {
         .format(progress)
 }
 
-const BookItem: Component<{ index: number; item: BookCache }> = (props) => {
+const BookItem: Component<
+    {
+        item: BookCache
+        selected: boolean
+        ref: Ref<HTMLLIElement>
+    }
+> = (props) => {
     return (
-        <li class='flex items-center gap-2'>
-            <div class='w-8 text-center text-2xl text-accent'>
-                {props.index}
-            </div>
+        <li
+            ref={props.ref}
+            class='py-1 px-4 flex items-center gap-2'
+            classList={{ 'bg-inverse-surface text-inverse-fg': props.selected }}
+        >
             <div class='flex-1'>
                 <p>
                     <A
@@ -40,7 +47,15 @@ const BookItem: Component<{ index: number; item: BookCache }> = (props) => {
                         {props.item.bookName}
                     </A>
                 </p>
-                <p class='text-sm text-sub-fg'>{props.item.path}</p>
+                <p
+                    class={`texs-sm ${
+                        props.selected
+                            ? 'text-inverse-fg'
+                            : 'text-sub-fg'
+                    }`}
+                >
+                    {props.item.path}
+                </p>
             </div>
             <div class='flex items-center gap-4 *:w-fit'>
                 <p class='text-sm'>{formatDT(props.item.lastRead)}</p>

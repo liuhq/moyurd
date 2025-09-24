@@ -60,6 +60,50 @@ export const keymap: KeymapConfig = {
             command: 'openfiledialog',
             desc: 'Open a File',
         },
+        'K': {
+            command: 'bookprev',
+            payload: 1,
+            desc: 'Prev Book Item',
+        },
+        'J': {
+            command: 'booknext',
+            payload: 1,
+            desc: 'Next Book Item',
+        },
+        'U': {
+            command: 'bookprev',
+            payload: 5,
+            desc: 'Prev 5 Book Item',
+        },
+        'D': {
+            command: 'booknext',
+            payload: 5,
+            desc: 'Next 5 Book Item',
+        },
+        'F': {
+            command: 'bookprev',
+            payload: 10,
+            desc: 'Prev 10 Book Item',
+        },
+        'B': {
+            command: 'booknext',
+            payload: 10,
+            desc: 'Next 10 Book Item',
+        },
+        'G': {
+            command: 'bookprev',
+            payload: 'top',
+            desc: 'First Book Item',
+        },
+        'Shift+G': {
+            command: 'booknext',
+            payload: 'bottom',
+            desc: 'Last Book Item',
+        },
+        'Enter': {
+            command: 'bookselect',
+            desc: 'Open Seleted Book Item',
+        },
     },
     'reading': {
         'C': {
@@ -183,7 +227,7 @@ export const keymap: KeymapConfig = {
             desc: 'Last TOC Item',
         },
         'Enter': {
-            command: 'tocSelect',
+            command: 'tocselect',
             desc: 'Jump to Seleted TOC Item',
         },
     },

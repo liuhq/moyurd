@@ -13,24 +13,38 @@ const _errorMessage = z.enum([
 export type ErrorMessage = z.infer<typeof _errorMessage>
 
 const _commandEvents = z.object({
-    close: z.void(),
+    // app
+    error: z.tuple([_errorMessage, z.string()]),
+    quit: z.void(),
+    win: z.enum(['maximize', 'max', 'minimize', 'min', 'unmaximize', 'unmax']),
+
+    // commandline
     commandline: z.boolean(),
     commit: z.void(),
-    error: z.tuple([_errorMessage, z.string()]),
-    keymap: z.void(),
-    loadnext: z.void(),
-    loadprev: z.void(),
+
+    // booklist
+    bookprev: z.union([z.number(), z.enum(['top'])]),
+    booknext: z.union([z.number(), z.enum(['bottom'])]),
+    bookselect: z.void(),
     open: z.string(),
     openfiledialog: z.void(),
-    quit: z.void(),
-    searchline: z.boolean(),
-    scrolldown: z.union([z.number(), z.enum(['half', 'page', 'bottom'])]),
+
+    // reading
+    close: z.void(),
+    loadprev: z.void(),
+    loadnext: z.void(),
     scrollup: z.union([z.number(), z.enum(['half', 'page', 'top'])]),
+    scrolldown: z.union([z.number(), z.enum(['half', 'page', 'bottom'])]),
+    searchline: z.boolean(),
+
+    // reading - toc
     toc: z.boolean(),
-    tocnext: z.union([z.number(), z.enum(['bottom'])]),
     tocprev: z.union([z.number(), z.enum(['top'])]),
-    tocSelect: z.void(),
-    win: z.enum(['maximize', 'max', 'minimize', 'min', 'unmaximize', 'unmax']),
+    tocnext: z.union([z.number(), z.enum(['bottom'])]),
+    tocselect: z.void(),
+
+    // keymap helper
+    keymap: z.void(),
 })
 
 export type CommandEvents = z.infer<typeof _commandEvents>
