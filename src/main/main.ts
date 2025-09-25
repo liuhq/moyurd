@@ -40,8 +40,8 @@ const createWindow = () => {
         )
     }
 
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    // Open the DevTools
+    if (import.meta.env.DEV) mainWindow.webContents.openDevTools()
 
     return mainWindow
 }
