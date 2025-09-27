@@ -1,6 +1,6 @@
+import { keymap, type KeymapMode } from '#config/keymap'
+import { useEventBus } from '#renderer/context/EventBusProvider'
 import { createEffect, onCleanup } from 'solid-js'
-import { keymap, type KeymapMode } from '../../config/keymap'
-import { useEventBus } from '../context/EventBusProvider'
 
 const normalizeKeySeq = (keySeq: string) => {
     const parts = keySeq

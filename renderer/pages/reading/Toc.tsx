@@ -1,3 +1,6 @@
+import type { EpubTocFlat } from '#lib/epub-parser'
+import { useEventBus } from '#renderer/context/EventBusProvider'
+import { registerKeymap } from '#renderer/hooks/useKeybind'
 import {
     type Component,
     createEffect,
@@ -10,9 +13,6 @@ import {
     untrack,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import type { EpubTocFlat } from '../../../lib/epub-parser'
-import { useEventBus } from '../../context/EventBusProvider'
-import { registerKeymap } from '../../hooks/useKeybind'
 
 const Toc: Component<
     {

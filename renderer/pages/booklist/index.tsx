@@ -1,3 +1,5 @@
+import { useEventBus } from '#renderer/context/EventBusProvider'
+import { registerKeymap } from '#renderer/hooks/useKeybind'
 import { useNavigate } from '@solidjs/router'
 import {
     type Component,
@@ -9,8 +11,6 @@ import {
     onMount,
     untrack,
 } from 'solid-js'
-import { useEventBus } from '../../context/EventBusProvider'
-import { registerKeymap } from '../../hooks/useKeybind'
 import {
     cache,
     filePath,

@@ -1,7 +1,7 @@
+import type { BookCache } from '#lib/load-data'
+import { setFilePath } from '#renderer/store'
 import { A } from '@solidjs/router'
 import { type Component, type Ref } from 'solid-js'
-import type { BookCache } from '../../../lib/load-data'
-import { setFilePath } from '../../store'
 
 const formatDT = (datetime: string) => {
     const dt = new Date(datetime)

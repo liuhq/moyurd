@@ -1,7 +1,7 @@
-import { useContext } from 'solid-js'
+import type { CommandEvents } from '#config/command'
+import { EventBus } from '#lib/event-bus'
 import type { ParentComponent } from 'solid-js'
-import type { CommandEvents } from '../../config/command'
-import { EventBus } from '../../lib/event-bus'
+import { useContext } from 'solid-js'
 import { EventBusContext } from './create'
 
 export const EventBusProvider: ParentComponent = (props) => {

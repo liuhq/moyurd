@@ -1,5 +1,5 @@
+import { parser } from '#lib/command-parser'
 import { z } from 'zod/mini'
-import { parser } from '../lib/command-parser'
 
 const _mode = z.enum(['normal', 'command', 'toc', 'search', 'keymap'])
 export type Mode = z.infer<typeof _mode>

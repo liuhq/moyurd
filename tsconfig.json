@@ -15,6 +15,13 @@
     "allowJs": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "baseUrl": "./",
+    "paths": {
+      "#lib/*": ["lib/*"],
+      "#main/*": ["main/*"],
+      "#renderer/*": ["renderer/*"],
+      "#config/*": ["config/*"]
+    }
   }
 }

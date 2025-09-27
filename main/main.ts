@@ -1,12 +1,12 @@
-import { app, BrowserWindow, dialog, ipcMain, net, protocol } from 'electron'
-import started from 'electron-squirrel-startup'
-import { join } from 'node:path'
-import { type EpubFile, parseEpub } from '../lib/epub-parser'
+import { type EpubFile, parseEpub } from '#lib/epub-parser'
 import {
     loadPersistentData,
     type PersistentData,
     savePersistentData,
-} from '../lib/load-data'
+} from '#lib/load-data'
+import { app, BrowserWindow, dialog, ipcMain, net, protocol } from 'electron'
+import started from 'electron-squirrel-startup'
+import { join } from 'node:path'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {

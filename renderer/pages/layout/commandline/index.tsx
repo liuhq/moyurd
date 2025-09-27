@@ -1,14 +1,10 @@
+import { type CommandEvents, matchCommand, parseCommand } from '#config/command'
+import { useEventBus } from '#renderer/context/EventBusProvider'
+import { registerKeymap } from '#renderer/hooks/useKeybind'
+import { setShowCommandLine } from '#renderer/store'
 import type { Component, Setter } from 'solid-js'
 import { onCleanup, onMount, untrack } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import {
-    type CommandEvents,
-    matchCommand,
-    parseCommand,
-} from '../../../../config/command'
-import { useEventBus } from '../../../context/EventBusProvider'
-import { registerKeymap } from '../../../hooks/useKeybind'
-import { setShowCommandLine } from '../../../store'
 
 const Commandline: Component<
     { commit: Setter<[string, CommandEvents[keyof CommandEvents]] | null> }

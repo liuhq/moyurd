@@ -1,3 +1,6 @@
+import type { CommandEvents } from '#config/command'
+import { useEventBus } from '#renderer/context/EventBusProvider'
+import { registerKeymap } from '#renderer/hooks/useKeybind'
 import {
     createEffect,
     createSignal,
@@ -8,9 +11,6 @@ import {
     type ParentComponent,
     Switch,
 } from 'solid-js'
-import type { CommandEvents } from '../../../config/command'
-import { useEventBus } from '../../context/EventBusProvider'
-import { registerKeymap } from '../../hooks/useKeybind'
 import {
     setShowCommandLine,
     setShowKeymapHelp,

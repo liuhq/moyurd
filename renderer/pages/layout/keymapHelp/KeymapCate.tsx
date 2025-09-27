@@ -1,5 +1,5 @@
+import type { Keymap } from '#config/keymap'
 import { type Component, Index } from 'solid-js'
-import type { Keymap } from '../../../../config/keymap'
 
 const KeymapCate: Component<{ title: string; kc: Keymap }> = (props) => {
     return (

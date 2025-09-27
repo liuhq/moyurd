@@ -1,3 +1,6 @@
+import type { EpubBook } from '#lib/epub-parser'
+import { useEventBus } from '#renderer/context/EventBusProvider'
+import { cache, filePath, setCache } from '#renderer/store'
 import { useNavigate } from '@solidjs/router'
 import {
     type Component,
@@ -11,9 +14,6 @@ import {
     untrack,
 } from 'solid-js'
 import { produce, unwrap } from 'solid-js/store'
-import type { EpubBook } from '../../../lib/epub-parser'
-import { useEventBus } from '../../context/EventBusProvider'
-import { cache, filePath, setCache } from '../../store'
 
 const processHtml = (htmlString: string) => {
     const div = document.createElement('div')

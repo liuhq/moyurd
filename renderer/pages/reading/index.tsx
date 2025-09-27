@@ -1,3 +1,12 @@
+import { useEventBus } from '#renderer/context/EventBusProvider'
+import { registerKeymap } from '#renderer/hooks/useKeybind'
+import {
+    cache,
+    filePath,
+    showCommandLine,
+    showKeymapHelp,
+    showSearchLine,
+} from '#renderer/store'
 import {
     type Component,
     createEffect,
@@ -8,15 +17,6 @@ import {
     Show,
     Suspense,
 } from 'solid-js'
-import { useEventBus } from '../../context/EventBusProvider'
-import { registerKeymap } from '../../hooks/useKeybind'
-import {
-    cache,
-    filePath,
-    showCommandLine,
-    showKeymapHelp,
-    showSearchLine,
-} from '../../store'
 import Content from './Content'
 import Toc from './Toc'
 

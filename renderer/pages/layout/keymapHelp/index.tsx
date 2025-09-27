@@ -1,9 +1,9 @@
+import { keymap } from '#config/keymap'
+import { useEventBus } from '#renderer/context/EventBusProvider'
+import { registerKeymap } from '#renderer/hooks/useKeybind'
 import { useLocation } from '@solidjs/router'
 import { Match, onCleanup, onMount, Switch } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import { keymap } from '../../../../config/keymap'
-import { useEventBus } from '../../../context/EventBusProvider'
-import { registerKeymap } from '../../../hooks/useKeybind'
 import KeymapCate from './KeymapCate'
 
 const KeymapHelp = () => {
