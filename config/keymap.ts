@@ -247,8 +247,48 @@ export const keymap: KeymapConfig = {
     'keymap': {
         'Escape': {
             command: 'keymap',
-            payload: true,
+            payload: false,
             desc: 'Close Keymap Help',
+        },
+        'K': {
+            command: 'scrollup',
+            payload: 1,
+            desc: 'Scroll Up 1 Line',
+        },
+        'J': {
+            command: 'scrolldown',
+            payload: 1,
+            desc: 'Scroll Down 1 Line',
+        },
+        'U': {
+            command: 'scrollup',
+            payload: 'half',
+            desc: 'Scroll Up Half Page',
+        },
+        'D': {
+            command: 'scrolldown',
+            payload: 'half',
+            desc: 'Scroll Down Half Page',
+        },
+        'F': {
+            command: 'scrollup',
+            payload: 'page',
+            desc: 'Scroll Up 1 Page',
+        },
+        'B': {
+            command: 'scrolldown',
+            payload: 'page',
+            desc: 'Scroll Down 1 Page',
+        },
+        'G': {
+            command: 'scrollup',
+            payload: 'top',
+            desc: 'Scroll to Top',
+        },
+        'Shift+G': {
+            command: 'scrolldown',
+            payload: 'bottom',
+            desc: 'Scroll to Bottom',
         },
     },
 }

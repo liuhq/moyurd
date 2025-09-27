@@ -10,7 +10,13 @@ import {
 } from 'solid-js'
 import { useEventBus } from '../../context/EventBusProvider'
 import { registerKeymap } from '../../hooks/useKeybind'
-import { cache, filePath, showCommandLine, showSearchLine } from '../../store'
+import {
+    cache,
+    filePath,
+    showCommandLine,
+    showKeymapHelp,
+    showSearchLine,
+} from '../../store'
 import Content from './Content'
 import Toc from './Toc'
 
@@ -41,6 +47,41 @@ const Reading: Component = () => {
             }
             setShowToc(show)
         }, cleanerId)
+        eventBus.on('loadnext', async () => {
+            requestAnimationFrame(() =>
+                containerRef!.scrollTo({
+                    top: 0,
+                    behavior: 'instant',
+                })
+            )
+        }, cleanerId)
+        eventBus.on('loadprev', async () => {
+            requestAnimationFrame(() =>
+                containerRef!.scrollTo({
+                    top: 0,
+                    behavior: 'instant',
+                })
+            )
+        }, cleanerId)
+    })
+
+    onCleanup(() => eventBus.offHandlers(cleanerId))
+
+    /// register shortcut keys
+    createEffect(() => {
+        if (
+            showCommandLine()
+            || showSearchLine()
+            || showToc()
+            || showKeymapHelp()
+        ) return
+        registerKeymap('reading')
+    })
+
+    createEffect(() => {
+        if (showKeymapHelp()) return
+
+        const scrollCleanerId = 'scroll'
         eventBus.on('scrollup', (n) => {
             requestAnimationFrame(() => {
                 if (n == 'top') {
@@ -75,7 +116,7 @@ const Reading: Component = () => {
                     behavior: 'smooth',
                 })
             })
-        }, cleanerId)
+        }, scrollCleanerId)
         eventBus.on('scrolldown', (n) => {
             requestAnimationFrame(() => {
                 if (n == 'bottom') {
@@ -110,33 +151,9 @@ const Reading: Component = () => {
                     behavior: 'smooth',
                 })
             })
-        }, cleanerId)
-        eventBus.on('loadnext', async () => {
-            requestAnimationFrame(() =>
-                containerRef!.scrollTo({
-                    top: 0,
-                    behavior: 'instant',
-                })
-            )
-        }, cleanerId)
-        eventBus.on('loadprev', async () => {
-            requestAnimationFrame(() =>
-                containerRef!.scrollTo({
-                    top: 0,
-                    behavior: 'instant',
-                })
-            )
-        }, cleanerId)
-    })
+        }, scrollCleanerId)
 
-    onCleanup(() => {
-        eventBus.offHandlers(cleanerId)
-    })
-
-    /// register shortcut keys
-    createEffect(() => {
-        if (showCommandLine() || showSearchLine() || showToc()) return
-        registerKeymap('reading')
+        onCleanup(() => eventBus.offHandlers(scrollCleanerId))
     })
 
     createEffect(() => {

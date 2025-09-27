@@ -1,31 +1,143 @@
-import { type Component, Index, onMount } from 'solid-js'
-import type { Keymap } from '../../../../config/keymap'
+import { useLocation } from '@solidjs/router'
+import { Match, onCleanup, onMount, Switch } from 'solid-js'
+import { Portal } from 'solid-js/web'
+import { keymap } from '../../../../config/keymap'
+import { useEventBus } from '../../../context/EventBusProvider'
 import { registerKeymap } from '../../../hooks/useKeybind'
+import KeymapCate from './KeymapCate'
 
-const KeymapHelp: Component<{ keymap: Keymap }> = (props) => {
-    onMount(() => registerKeymap('keymap'))
+const KeymapHelp = () => {
+    const eventBus = useEventBus()
+    const cleanerId = 'keymap'
+    const location = useLocation()
+
+    let containerRef: HTMLUListElement
+
+    onMount(() => {
+        registerKeymap('keymap')
+
+        eventBus.on('scrollup', (n) => {
+            requestAnimationFrame(() => {
+                if (n == 'top') {
+                    containerRef!.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                    })
+                    return
+                }
+                let scrollDelta: number
+                switch (n) {
+                    case 'half':
+                        scrollDelta = -document.documentElement.clientHeight / 2
+                        break
+                    case 'page':
+                        scrollDelta = -document.documentElement.clientHeight
+                        break
+                    default:
+                        {
+                            const line = n ?? 1
+                            const lineHeight = parseFloat(
+                                window
+                                    .getComputedStyle(containerRef!)
+                                    .lineHeight,
+                            )
+                            scrollDelta = -lineHeight * line
+                        }
+                        break
+                }
+                containerRef!.scrollBy({
+                    top: scrollDelta,
+                    behavior: 'smooth',
+                })
+            })
+        }, cleanerId)
+        eventBus.on('scrolldown', (n) => {
+            requestAnimationFrame(() => {
+                if (n == 'bottom') {
+                    containerRef!.scrollTo({
+                        top: containerRef!.scrollHeight,
+                        behavior: 'smooth',
+                    })
+                    return
+                }
+                let scrollDelta: number
+                switch (n) {
+                    case 'half':
+                        scrollDelta = document.documentElement.clientHeight / 2
+                        break
+                    case 'page':
+                        scrollDelta = document.documentElement.clientHeight
+                        break
+                    default:
+                        {
+                            const line = n ?? 1
+                            const lineHeight = parseFloat(
+                                window
+                                    .getComputedStyle(containerRef!)
+                                    .lineHeight,
+                            )
+                            scrollDelta = lineHeight * line
+                        }
+                        break
+                }
+                containerRef!.scrollBy({
+                    top: scrollDelta,
+                    behavior: 'smooth',
+                })
+            })
+        }, cleanerId)
+    })
+
+    onCleanup(() => eventBus.offHandlers(cleanerId))
 
     return (
-        <div class='flex flex-wrap gap-4'>
-            <div>
-                {/* <p>{props.title.toUpperCase()}</p> */}
-                <ul class='flex flex-col gap-2 mt-1'>
-                    <Index
-                        each={Object
-                            .entries(props.keymap)}
+        <Portal>
+            <div class='absolute top-0 left-0 w-full h-full bg-panal-mask z-30 flex place-content-center items-center'>
+                <div class='w-4/5 h-4/5 py-4 pl-4 pr-1 bg-surface'>
+                    <ul
+                        ref={containerRef!}
+                        class='w-full h-full pr-1 overflow-auto'
                     >
-                        {(ke, _) => (
-                            <li class='flex flex-wrap gap-2'>
-                                <kbd class='px-1 border border-b-4 rounded-sm text-xs'>
-                                    {ke()[0]}
-                                </kbd>
-                                {ke()[1].desc}
-                            </li>
-                        )}
-                    </Index>
-                </ul>
+                        <Switch>
+                            <Match when={location.pathname == '/'}>
+                                <KeymapCate
+                                    title='booklist'
+                                    kc={keymap['booklist']}
+                                />
+                            </Match>
+                            <Match
+                                when={location.pathname == '/reading'}
+                            >
+                                <KeymapCate
+                                    title='reading'
+                                    kc={keymap['reading']}
+                                />
+                                <KeymapCate
+                                    title='toc'
+                                    kc={keymap['toc']}
+                                />
+                                <KeymapCate
+                                    title='search line'
+                                    kc={keymap['searchline']}
+                                />
+                            </Match>
+                        </Switch>
+                        <KeymapCate
+                            title='command line'
+                            kc={keymap['commandline']}
+                        />
+                        <KeymapCate
+                            title='global'
+                            kc={keymap['global']}
+                        />
+                        <KeymapCate
+                            title='keymap help'
+                            kc={keymap['keymap']}
+                        />
+                    </ul>
+                </div>
             </div>
-        </div>
+        </Portal>
     )
 }
 

@@ -9,7 +9,6 @@ import {
     Switch,
 } from 'solid-js'
 import type { CommandEvents } from '../../../config/command'
-import { keymap } from '../../../config/keymap'
 import { useEventBus } from '../../context/EventBusProvider'
 import { registerKeymap } from '../../hooks/useKeybind'
 import {
@@ -88,7 +87,7 @@ const Layout: ParentComponent = (props) => {
 
     /// register shortcut keys
     createEffect(() => {
-        if (showCommandLine() || showSearchLine()) return
+        if (showCommandLine() || showSearchLine() || showKeymapHelp()) return
         registerKeymap('global')
     })
 
@@ -117,7 +116,7 @@ const Layout: ParentComponent = (props) => {
                         <Commandline commit={setCommand} />
                     </Match>
                     <Match when={showKeymapHelp()}>
-                        <KeymapHelp keymap={keymap['global']} />
+                        <KeymapHelp />
                     </Match>
                 </Switch>
             </div>
