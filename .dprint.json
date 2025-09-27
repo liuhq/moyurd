@@ -27,5 +27,5 @@
     "https://plugins.dprint.dev/g-plane/malva-v0.14.3.wasm",
     "https://plugins.dprint.dev/g-plane/markup_fmt-v0.23.3.wasm"
   ],
-  "excludes": [".vite", "example", "out", "src/renderer/style.css"]
+  "excludes": [".vite", "example", "out", "renderer/style.css"]
 }
