@@ -5,10 +5,10 @@ import {
     type CommandEvents,
     matchCommand,
     parseCommand,
-} from '../../../config/command'
-import { useEventBus } from '../../context/EventBusProvider'
-import { registerKeymap } from '../../hooks/useKeybind'
-import { setShowCommandLine } from '../../store'
+} from '../../../../config/command'
+import { useEventBus } from '../../../context/EventBusProvider'
+import { registerKeymap } from '../../../hooks/useKeybind'
+import { setShowCommandLine } from '../../../store'
 
 const Commandline: Component<
     { commit: Setter<[string, CommandEvents[keyof CommandEvents]] | null> }

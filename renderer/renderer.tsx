@@ -1,10 +1,10 @@
 import { render } from 'solid-js/web'
 import './style.css'
 import { HashRouter, Route } from '@solidjs/router'
-import BookList from './components/booklist'
-import Layout from './components/layout'
-import Reading from './components/reading'
 import { EventBusProvider } from './context/EventBusProvider'
+import BookList from './pages/booklist'
+import Layout from './pages/layout'
+import Reading from './pages/reading'
 
 const root = document.getElementById('root') as HTMLElement
 

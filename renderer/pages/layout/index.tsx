@@ -9,15 +9,18 @@ import {
     Switch,
 } from 'solid-js'
 import type { CommandEvents } from '../../../config/command'
+import { keymap } from '../../../config/keymap'
 import { useEventBus } from '../../context/EventBusProvider'
 import { registerKeymap } from '../../hooks/useKeybind'
 import {
     setShowCommandLine,
-    setShowSearchLine,
+    setShowKeymapHelp,
     showCommandLine,
+    showKeymapHelp,
     showSearchLine,
 } from '../../store'
-import Commandline from '../commandline'
+import Commandline from './commandline'
+import KeymapHelp from './keymapHelp'
 
 const Layout: ParentComponent = (props) => {
     const [command, setCommand] = createSignal<
@@ -51,6 +54,17 @@ const Layout: ParentComponent = (props) => {
                     break
             }
         }, cleanerId)
+        eventBus.on('keymap', (show) => {
+            if (show == undefined) {
+                eventBus.emit('error', [
+                    'MISSING_ARGUMENT',
+                    'keymap <true | false>',
+                ])
+                return
+            }
+            if (show == showKeymapHelp()) return
+            setShowKeymapHelp(show)
+        }, cleanerId)
         eventBus.on('commandline', (show) => {
             if (show == undefined) {
                 eventBus.emit('error', [
@@ -61,17 +75,6 @@ const Layout: ParentComponent = (props) => {
             }
             if (show == showCommandLine() || showSearchLine()) return
             setShowCommandLine(show)
-        }, cleanerId)
-        eventBus.on('searchline', (show) => {
-            if (show == undefined) {
-                eventBus.emit('error', [
-                    'MISSING_ARGUMENT',
-                    'searchline <true | false>',
-                ])
-                return
-            }
-            if (show == showSearchLine() || showCommandLine()) return
-            setShowSearchLine(show)
         }, cleanerId)
         eventBus.on('error', (msg) => {
             if (!msg) return
@@ -113,11 +116,9 @@ const Layout: ParentComponent = (props) => {
                     <Match when={showCommandLine()}>
                         <Commandline commit={setCommand} />
                     </Match>
-                    {
-                        /* <Match when={mode() == 'keymap'}>
-                        <KeymapHelp />
-                    </Match> */
-                    }
+                    <Match when={showKeymapHelp()}>
+                        <KeymapHelp keymap={keymap['global']} />
+                    </Match>
                 </Switch>
             </div>
         </>

@@ -7,6 +7,7 @@ export type KeymapMode =
     | 'commandline'
     | 'toc'
     | 'searchline'
+    | 'keymap'
 
 type KeymapEntry = {
     [K in keyof CommandEvents]: {
@@ -47,6 +48,7 @@ export const keymap: KeymapConfig = {
         },
         'Shift+?': {
             command: 'keymap',
+            payload: true,
             desc: 'Show Keymap Help',
         },
         'Shift+:': {
@@ -240,6 +242,13 @@ export const keymap: KeymapConfig = {
         'Enter': {
             command: 'commit',
             desc: 'Confirm Search',
+        },
+    },
+    'keymap': {
+        'Escape': {
+            command: 'keymap',
+            payload: true,
+            desc: 'Close Keymap Help',
         },
     },
 }

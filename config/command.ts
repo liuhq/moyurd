@@ -44,7 +44,7 @@ const _commandEvents = z.object({
     tocselect: z.void(),
 
     // keymap helper
-    keymap: z.void(),
+    keymap: z.boolean(),
 })
 
 export type CommandEvents = z.infer<typeof _commandEvents>
