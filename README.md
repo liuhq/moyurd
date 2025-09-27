@@ -9,7 +9,7 @@ npm forge:make
 
 ## Usage
 
-~Press `?` (`shift+/`) to get help with shortcut keys.~ (WIP) to see: [config/keymap.ts](./src/config/keymap.ts)
+Press `?` (`shift+/`) to get help with shortcut keys.
 
 <!-- ## Support -->
 
