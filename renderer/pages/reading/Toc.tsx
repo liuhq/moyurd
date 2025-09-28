@@ -80,15 +80,15 @@ const Toc: Component<
 
     const itemStyle = {
         current: 'bg-accent text-inverse-fg',
-        select: 'bg-inverse-surface text-inverse-fg',
+        select: 'bg-inverse-bg text-inverse-fg',
     }
 
     return (
         <Portal>
-            <div class='absolute top-0 left-0 w-full h-full bg-panal-mask z-30 flex place-content-center items-center'>
-                <div class='w-4/5 h-4/5 py-4 pl-4 pr-1 bg-surface'>
+            <div class='absolute top-0 left-0 w-full h-full bg-panel-mask z-30 flex place-content-center items-center'>
+                <div class='w-4/5 h-4/5 py-4 pl-4 pr-1 bg-bg'>
                     <Show when={props.toc} fallback={<div>Loading...</div>}>
-                        <ul class='w-full h-full pr-1 overflow-auto'>
+                        <ul class='no-drag w-full h-full pr-1 overflow-auto'>
                             <Index each={props.toc.items}>
                                 {(item, index) => (
                                     <li

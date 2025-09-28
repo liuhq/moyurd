@@ -104,7 +104,7 @@ const BookList: Component = () => {
 
     return (
         <div class='h-full w-full p-8'>
-            <ul class='w-full h-full pr-1 flex flex-col gap-2 overflow-auto'>
+            <ul class='no-drag w-full h-full pr-1 flex flex-col gap-2 overflow-auto'>
                 <Index each={cache.recent}>
                     {(item, index) => (
                         <BookItem

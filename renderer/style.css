@@ -1,35 +1,13 @@
 @import "tailwindcss";
 
-:root {
-  --surface: #dce0e8;
-  --fg: #4c4f69;
-  --sub-fg: #5c5f77;
-  --inverse-surface: #4c4f69;
-  --inverse-fg: #dce0e8;
-  --panal-mask: #00000030;
-  --accent: #7287fd;
-}
-
-/* theme switcher */
-
-[data-theme="night"] {
-  --surface: #11111b;
-  --fg: #cdd6f4;
-  --sub-fg: #bac2de;
-  --inverse-surface: #cdd6f4;
-  --inverse-fg: #11111b;
-  --panal-mask: #00000030;
-  --accent: #b4befe;
-}
-
 @theme {
   --color-*: initial;
-  --color-surface: var(--surface);
+  --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-sub-fg: var(--sub-fg);
-  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-bg: var(--inverse-bg);
   --color-inverse-fg: var(--inverse-fg);
-  --color-panal-mask: var(--panal-mask);
+  --color-panel-mask: var(--panel-mask);
   --color-accent: var(--accent);
 }
 
@@ -37,13 +15,13 @@
     width: 8px;
 }
 *::-webkit-scrollbar-thumb {
-    background-color: var(--inverse-surface);
+    background-color: var(--inverse-bg);
 }
 *::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-/* 
+ 
 body {
   user-select: none;
   app-region: drag;
@@ -52,4 +30,3 @@ body {
 .no-drag, a {
   app-region: no-drag;
 }
-*/

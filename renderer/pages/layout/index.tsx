@@ -1,6 +1,15 @@
 import type { CommandEvents } from '#config/command'
+import { useConfig } from '#renderer/context/ConfigProvider'
 import { useEventBus } from '#renderer/context/EventBusProvider'
+import { applyTheme } from '#renderer/hooks/applyTheme'
 import { registerKeymap } from '#renderer/hooks/useKeybind'
+import {
+    setShowCommandLine,
+    setShowKeymapHelp,
+    showCommandLine,
+    showKeymapHelp,
+    showSearchLine,
+} from '#renderer/store'
 import {
     createEffect,
     createSignal,
@@ -11,13 +20,6 @@ import {
     type ParentComponent,
     Switch,
 } from 'solid-js'
-import {
-    setShowCommandLine,
-    setShowKeymapHelp,
-    showCommandLine,
-    showKeymapHelp,
-    showSearchLine,
-} from '../../store'
 import Commandline from './commandline'
 import KeymapHelp from './keymapHelp'
 
@@ -25,10 +27,13 @@ const Layout: ParentComponent = (props) => {
     const [command, setCommand] = createSignal<
         [string, CommandEvents[keyof CommandEvents]] | null
     >(null)
+    const moyurdConfig = useConfig()
     const eventBus = useEventBus()
     const cleanerId = 'app'
 
     onMount(() => {
+        applyTheme(moyurdConfig.colors)
+
         /// register global listener
         eventBus.on('quit', window.electronAPI.appQuit, cleanerId)
         eventBus.on('win', async (state) => {
@@ -109,7 +114,7 @@ const Layout: ParentComponent = (props) => {
 
     return (
         <>
-            <div class='h-dvh w-dvw bg-surface text-fg'>
+            <div class='h-dvh w-dvw bg-bg text-fg'>
                 {props.children}
                 <Switch>
                     <Match when={showCommandLine()}>

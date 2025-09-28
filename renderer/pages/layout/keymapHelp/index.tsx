@@ -92,8 +92,8 @@ const KeymapHelp = () => {
 
     return (
         <Portal>
-            <div class='absolute top-0 left-0 w-full h-full bg-panal-mask z-30 flex place-content-center items-center'>
-                <div class='w-4/5 h-4/5 py-4 pl-4 pr-1 bg-surface'>
+            <div class='absolute top-0 left-0 w-full h-full bg-panel-mask z-30 flex place-content-center items-center'>
+                <div class='no-drag w-4/5 h-4/5 py-4 pl-4 pr-1 bg-bg text-fg'>
                     <ul
                         ref={containerRef!}
                         class='w-full h-full pr-1 overflow-auto'

@@ -1,4 +1,4 @@
-import type { PersistentData } from '#lib/load-data'
+import type { DataCache } from '#lib/load-data'
 import { createSignal } from 'solid-js'
 import { createStore } from 'solid-js/store'
 
@@ -8,4 +8,4 @@ export const [showSearchLine, setShowSearchLine] = createSignal(false)
 
 export const [filePath, setFilePath] = createSignal('')
 
-export const [cache, setCache] = createStore<PersistentData>({ recent: [] })
+export const [cache, setCache] = createStore<DataCache>({ recent: [] })

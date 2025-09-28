@@ -1,8 +1,12 @@
+import defaultConfig from '#config/config.default.json'
 import { type EpubFile, parseEpub } from '#lib/epub-parser'
 import {
-    loadPersistentData,
-    type PersistentData,
-    savePersistentData,
+    type Config as MoyurdConfig,
+    type DataCache,
+    loadCache as _loadCache,
+    loadConfig as _loadConfig,
+    saveCache as _saveCache,
+    saveConfig as _saveConfig,
 } from '#lib/load-data'
 import { app, BrowserWindow, dialog, ipcMain, net, protocol } from 'electron'
 import started from 'electron-squirrel-startup'
@@ -46,15 +50,23 @@ const createWindow = () => {
     return mainWindow
 }
 
-const cachePath = join(app.getPath('userData'), 'book.cache')
+const cachePath = join(app.getPath('userData'), 'moyurd.cache')
+const configPath = join(app.getPath('userData'), 'moyurd.config')
 
-const loadCache = async (): Promise<PersistentData> => {
-    const data = await loadPersistentData(cachePath)
+const loadCache = async (): Promise<DataCache> => {
+    const data = await _loadCache(cachePath, { recent: [] })
     return data
 }
+const saveCache = async (data: DataCache) => {
+    await _saveCache(cachePath, data)
+}
 
-const saveCache = async (data: PersistentData) => {
-    await savePersistentData(cachePath, data)
+const loadConfig = async (): Promise<MoyurdConfig> => {
+    const data = await _loadConfig(configPath, defaultConfig)
+    return data
+}
+const saveConfig = async (data: MoyurdConfig) => {
+    await _saveConfig(cachePath, data)
 }
 
 // This method will be called when Electron has finished
@@ -89,7 +101,12 @@ app.on('ready', () => {
     ipcMain.handle('cache:load', async () => await loadCache())
     ipcMain.handle(
         'cache:save',
-        async (_, data: PersistentData) => await saveCache(data),
+        async (_, data: DataCache) => await saveCache(data),
+    )
+    ipcMain.handle('config:load', async () => await loadConfig())
+    ipcMain.handle(
+        'config:save',
+        async (_, data: MoyurdConfig) => await saveConfig(data),
     )
     ipcMain.handle('dialog:openFile', async () => {
         const { canceled, filePaths } = await dialog.showOpenDialog(win, {

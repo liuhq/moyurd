@@ -39,11 +39,11 @@ const Commandline: Component<
 
     return (
         <Portal>
-            <div class='fixed bg-surface w-dvw bottom-0 p-1 z-40'>
+            <div class='fixed bg-bg w-dvw bottom-0 p-1 z-40'>
                 <input
                     type='text'
                     ref={inputRef!}
-                    class='bg-surface w-full outline-accent caret-accent'
+                    class='bg-bg w-full outline-accent caret-accent'
                 />
             </div>
         </Portal>

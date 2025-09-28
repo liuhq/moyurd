@@ -1,0 +1,11 @@
+{
+  "colors": {
+    "bg": "#dce0e8",
+    "fg": "#4c4f69",
+    "subFg": "#5c5f77",
+    "inverseBg": "#4c4f69",
+    "inverseFg": "#dce0e8",
+    "shadow": "#00000030",
+    "accent": "#7287fd"
+  }
+}
