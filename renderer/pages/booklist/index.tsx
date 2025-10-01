@@ -9,6 +9,7 @@ import {
     Index,
     onCleanup,
     onMount,
+    Show,
     untrack,
 } from 'solid-js'
 import {
@@ -91,20 +92,26 @@ const BookList: Component = () => {
     })
 
     return (
-        <div class='h-full w-full p-8'>
-            <ul class='no-drag w-full h-full pr-1 flex flex-col gap-2 overflow-auto'>
-                <Index each={cache.recent}>
-                    {(item, index) => (
-                        <BookItem
-                            item={item()}
-                            selected={target() == index}
-                            ref={(el) => {
-                                targetRef[index] = el
-                            }}
-                        />
-                    )}
-                </Index>
-            </ul>
+        <div class='h-full w-full p-8 flex flex-col gap-2'>
+            <h1 class='text-2xl'>Recent Books</h1>
+            <Show
+                when={cache.recent.length > 0}
+                fallback={<div class='text-sub-fg italic'>No book history</div>}
+            >
+                <ul class='no-drag w-full h-full pr-1 flex flex-col gap-2 overflow-auto'>
+                    <Index each={cache.recent}>
+                        {(item, index) => (
+                            <BookItem
+                                item={item()}
+                                selected={target() == index}
+                                ref={(el) => {
+                                    targetRef[index] = el
+                                }}
+                            />
+                        )}
+                    </Index>
+                </ul>
+            </Show>
         </div>
     )
 }

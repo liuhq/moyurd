@@ -57,9 +57,13 @@ const BookItem: Component<
                     {props.item.path}
                 </p>
             </div>
-            <div class='flex items-center gap-4 *:w-fit'>
-                <p class='text-sm'>{formatDT(props.item.lastRead)}</p>
-                <p>{formatProgress(props.item.progress)}</p>
+            <div class='flex items-center gap-2 *:font-mono *:text-sm'>
+                <p class='w-fit'>
+                    {formatDT(props.item.lastRead)}
+                </p>
+                <p class='w-9 text-end'>
+                    {formatProgress(props.item.progress)}
+                </p>
             </div>
         </li>
     )

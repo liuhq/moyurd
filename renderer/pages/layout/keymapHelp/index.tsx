@@ -96,8 +96,12 @@ const KeymapHelp = () => {
                 <div class='no-drag w-4/5 h-4/5 py-4 pl-4 pr-1 bg-bg text-fg'>
                     <ul
                         ref={containerRef!}
-                        class='w-full h-full pr-1 overflow-auto'
+                        class='w-full h-full pr-1 overflow-auto flex flex-col gap-8'
                     >
+                        <KeymapCate
+                            title='keymap help'
+                            kc={keymap['keymap']}
+                        />
                         <Switch>
                             <Match when={location.pathname == '/'}>
                                 <KeymapCate
@@ -116,10 +120,6 @@ const KeymapHelp = () => {
                                     title='toc'
                                     kc={keymap['toc']}
                                 />
-                                <KeymapCate
-                                    title='search line'
-                                    kc={keymap['searchline']}
-                                />
                             </Match>
                         </Switch>
                         <KeymapCate
@@ -129,10 +129,6 @@ const KeymapHelp = () => {
                         <KeymapCate
                             title='global'
                             kc={keymap['global']}
-                        />
-                        <KeymapCate
-                            title='keymap help'
-                            kc={keymap['keymap']}
                         />
                     </ul>
                 </div>

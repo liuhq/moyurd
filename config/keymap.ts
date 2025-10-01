@@ -234,15 +234,15 @@ export const keymap: KeymapConfig = {
         },
     },
     'searchline': {
-        'Escape': {
-            command: 'searchline',
-            payload: false,
-            desc: 'Close Search Line',
-        },
-        'Enter': {
-            command: 'commit',
-            desc: 'Confirm Search',
-        },
+        // 'Escape': {
+        //     command: 'searchline',
+        //     payload: false,
+        //     desc: 'Close Search Line',
+        // },
+        // 'Enter': {
+        //     command: 'commit',
+        //     desc: 'Confirm Search',
+        // },
     },
     'keymap': {
         'Escape': {
