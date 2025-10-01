@@ -3,10 +3,10 @@ import { type EpubFile, parseEpub } from '#lib/epub-parser'
 import {
     type Config as MoyurdConfig,
     type DataCache,
-    loadCache as _loadCache,
-    loadConfig as _loadConfig,
-    saveCache as _saveCache,
-    saveConfig as _saveConfig,
+    loadCache,
+    loadConfig,
+    saveCache,
+    saveConfig,
 } from '#lib/load-data'
 import { app, BrowserWindow, dialog, ipcMain, net, protocol } from 'electron'
 import started from 'electron-squirrel-startup'
@@ -20,12 +20,18 @@ if (started) {
 // Debug
 app.commandLine.appendSwitch('remote-debugging-port', '9229')
 
+const cachePath = join(app.getPath('userData'), 'cache.json')
+const configPath = join(app.getPath('userData'), 'config.json')
+
 const epubMap = new Map<number, EpubFile>()
 
-const createWindow = () => {
+const createWindow = async (config: {
+    bg: string
+}) => {
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        backgroundColor: config.bg,
         frame: false,
         resizable: true,
         webPreferences: {
@@ -50,30 +56,13 @@ const createWindow = () => {
     return mainWindow
 }
 
-const cachePath = join(app.getPath('userData'), 'cache.json')
-const configPath = join(app.getPath('userData'), 'config.json')
-
-const loadCache = async (): Promise<DataCache> => {
-    const data = await _loadCache(cachePath, { recent: [] })
-    return data
-}
-const saveCache = async (data: DataCache) => {
-    await _saveCache(cachePath, data)
-}
-
-const loadConfig = async (): Promise<MoyurdConfig> => {
-    const data = await _loadConfig(configPath, defaultConfig)
-    return data
-}
-const saveConfig = async (data: MoyurdConfig) => {
-    await _saveConfig(cachePath, data)
-}
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => {
-    const win = createWindow()
+app.on('ready', async () => {
+    const config = await loadConfig(configPath, defaultConfig)
+
+    const win = await createWindow({ bg: config.colors.bg })
 
     protocol.handle('moyurd', (req) => {
         const filePath = req.url.replace('moyurd://', 'file://')
@@ -98,15 +87,18 @@ app.on('ready', () => {
         if (!win.isMaximized()) return
         win.unmaximize()
     })
-    ipcMain.handle('cache:load', async () => await loadCache())
+    ipcMain.handle(
+        'cache:load',
+        async () => await loadCache(cachePath, { recent: [] }),
+    )
     ipcMain.handle(
         'cache:save',
-        async (_, data: DataCache) => await saveCache(data),
+        async (_, data: DataCache) => await saveCache(cachePath, data),
     )
-    ipcMain.handle('config:load', async () => await loadConfig())
+    ipcMain.handle('config:load', async () => config)
     ipcMain.handle(
         'config:save',
-        async (_, data: MoyurdConfig) => await saveConfig(data),
+        async (_, data: MoyurdConfig) => await saveConfig(configPath, data),
     )
     ipcMain.handle('dialog:openFile', async () => {
         const { canceled, filePaths } = await dialog.showOpenDialog(win, {
@@ -157,10 +149,11 @@ app.on('window-all-closed', () => {
     }
 })
 
-app.on('activate', () => {
+app.on('activate', async () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length == 0) {
-        createWindow()
+        const config = await loadConfig(configPath, defaultConfig)
+        await createWindow({ bg: config.colors.bg })
     }
 })
