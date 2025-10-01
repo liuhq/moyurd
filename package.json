@@ -1,7 +1,7 @@
 {
   "name": "moyurd",
   "productName": "moyurd",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A simple Epub Reader",
   "main": ".vite/build/main.js",
   "scripts": {
