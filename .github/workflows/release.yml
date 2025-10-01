@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version (vX,Y,Z)
+        required: true
+      draft:
+        description: Whether to create as a draft
+        required: false
+        default: "true"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Download artifacts
+      uses: actions/download-artifact@v5
+      with:
+        path: ./dist
+    - name: Create Release
+      uses: softprops/action-gh-release@v2.3.3
+      if: github.ref_type == 'tag'
+      with:
+        tag_name: ${{ github.event.inputs.version }}
+        name: Release ${{ github.event.inputs.version }}
+        draft: ${{ github.event.inputs.draft }}
+        files: dist/**/*
+        # Authorized secret GitHub Personal Access Token. Defaults to ${{ github.token }}
+        # token: ${{ github.token }}
+        make_latest: true
+              
