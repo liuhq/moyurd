@@ -50,8 +50,8 @@ const createWindow = () => {
     return mainWindow
 }
 
-const cachePath = join(app.getPath('userData'), 'moyurd.cache')
-const configPath = join(app.getPath('userData'), 'moyurd.config')
+const cachePath = join(app.getPath('userData'), 'cache.json')
+const configPath = join(app.getPath('userData'), 'config.json')
 
 const loadCache = async (): Promise<DataCache> => {
     const data = await _loadCache(cachePath, { recent: [] })
