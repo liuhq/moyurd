@@ -1,6 +1,7 @@
 import type { EpubBook } from '#lib/epub-parser'
+import { useCache } from '#renderer/context/CacheProvider'
 import { useEventBus } from '#renderer/context/EventBusProvider'
-import { cache, filePath, setCache } from '#renderer/store'
+import { filePath } from '#renderer/store'
 import { useNavigate } from '@solidjs/router'
 import {
     type Component,
@@ -61,6 +62,7 @@ const Content: Component<
         setCurrentChapter: Setter<string>
     }
 > = (props) => {
+    const [cache, setCache] = useCache()
     const eventBus = useEventBus()
     const cleanerId = 'reading-content'
     const navigate = useNavigate()

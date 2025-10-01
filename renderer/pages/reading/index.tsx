@@ -1,7 +1,7 @@
+import { useCache } from '#renderer/context/CacheProvider'
 import { useEventBus } from '#renderer/context/EventBusProvider'
 import { registerKeymap } from '#renderer/hooks/useKeybind'
 import {
-    cache,
     filePath,
     showCommandLine,
     showKeymapHelp,
@@ -21,7 +21,7 @@ import Content from './Content'
 import Toc from './Toc'
 
 const Reading: Component = () => {
-    // const [content, setContent] = createSignal('')
+    const [cache] = useCache()
     const eventBus = useEventBus()
     const cleanerId = 'reading'
     const [showToc, setShowToc] = createSignal(false)

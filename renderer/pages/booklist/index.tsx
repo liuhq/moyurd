@@ -1,10 +1,10 @@
+import { useCache } from '#renderer/context/CacheProvider'
 import { useEventBus } from '#renderer/context/EventBusProvider'
 import { registerKeymap } from '#renderer/hooks/useKeybind'
 import { useNavigate } from '@solidjs/router'
 import {
     type Component,
     createEffect,
-    createResource,
     createSignal,
     Index,
     onCleanup,
@@ -12,9 +12,7 @@ import {
     untrack,
 } from 'solid-js'
 import {
-    cache,
     filePath,
-    setCache,
     setFilePath,
     showCommandLine,
     showKeymapHelp,
@@ -24,6 +22,7 @@ import BookItem from './BookItem'
 
 const BookList: Component = () => {
     const navigate = useNavigate()
+    const [cache] = useCache()
     const eventBus = useEventBus()
     const cleanerId = 'booklist'
     const [target, setTarget] = createSignal(0)
@@ -82,17 +81,6 @@ const BookList: Component = () => {
     createEffect(() => {
         if (showCommandLine() || showSearchLine() || showKeymapHelp()) return
         registerKeymap('booklist')
-    })
-
-    const [cacheRes] = createResource(async () =>
-        await window.electronAPI.cacheLoad()
-    )
-
-    createEffect(() => {
-        if (cacheRes.error) return
-        const cacheResCopy = cacheRes()
-        if (!cacheResCopy) return
-        setCache(cacheResCopy)
     })
 
     createEffect(() => {
