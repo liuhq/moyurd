@@ -1,4 +1,4 @@
-# (WIP) moyurd
+# moyurd
 A simple Epub Reader
 
 ## Build
@@ -18,13 +18,13 @@ config file at `XDG_CONFIG_HOME/moyurd/moyurd.config`
 ```json
 {
   "colors": {
-    "bg": "#dce0e8",  // background color
-    "fg": "#4c4f69",  // foreground color
-    "subFg": "#5c5f77",  // sub foreground color
+    "bg": "#dce0e8",         // background color
+    "fg": "#4c4f69",         // foreground color
+    "subFg": "#5c5f77",      // sub foreground color
     "inverseBg": "#4c4f69",  // inverse Background color
     "inverseFg": "#dce0e8",  // inverse foreground color
-    "shadow": "#00000030",  // shadow color under the toc panel
-    "accent": "#7287fd"  // primary theme color
+    "shadow": "#00000030",   // shadow color under the toc panel
+    "accent": "#7287fd"      // primary theme color
   }
 }
 
