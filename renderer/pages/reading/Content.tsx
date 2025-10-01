@@ -95,6 +95,10 @@ const Content: Component<
                     if (currentBook) {
                         currentBook.lastRead = new Date().toISOString()
                         currentBook.lastChapter = currentChapterCopy
+                        const ind = props.tocFlat.idMap.get(currentChapterCopy)
+                            ?? 1
+                        currentBook.progress = ind
+                            / (props.tocFlat.items.length - 1)
                     } else {
                         rnt.push({
                             path: filePath(),
