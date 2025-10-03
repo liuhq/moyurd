@@ -1,10 +1,30 @@
 # moyurd
 A simple Epub Reader
 
+## Installation
+
+### Archlinux
+
+>AUR todo...
+
+### Download
+
+Get moyurd from [release](https://github.com/liuhq/moyurd/releases)
+
 ## Build
 
+Build a ready-to-use standalone package, or a system-specific installer.
+
+### Package
+
 ```sh
-npm forge:make
+npm run forge:package
+```
+
+### Installer
+
+```sh
+npm run forge:make
 ```
 
 ## Usage
