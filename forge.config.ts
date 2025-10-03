@@ -9,6 +9,9 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses'
 const config: ForgeConfig = {
     packagerConfig: {
         asar: true,
+        icon: './images/icon',
+        executableName: 'moyurd',
+        extraResource: ['./images/icon.ico', './images/icon.png'],
     },
     rebuildConfig: {},
     makers: [
@@ -16,6 +19,7 @@ const config: ForgeConfig = {
             name: 'moyurd',
             description: 'A simple Epub Reader',
             authors: 'Horace Liu',
+            setupIcon: './images/icon.ico',
         }),
         new MakerZIP({}, ['darwin']),
         new MakerDeb({
@@ -24,7 +28,7 @@ const config: ForgeConfig = {
                 productName: 'moyurd',
                 description: 'A simple Epub Reader',
                 productDescription: 'A simple Epub Reader',
-                icon: '',
+                icon: './images/icon.png',
                 maintainer: 'Horace Liu',
                 homepage: 'https://github.com/liuhq/moyurd',
             },
