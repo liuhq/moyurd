@@ -1,7 +1,7 @@
 {
   "name": "moyurd",
   "productName": "moyurd",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A simple Epub Reader",
   "main": ".vite/build/main.js",
   "scripts": {
@@ -13,7 +13,8 @@
     "lint:check": "eslint .",
     "lint:fix": "eslint --fix",
     "fmt:check": "dprint check",
-    "fmt:run": "dprint fmt"
+    "fmt:run": "dprint fmt",
+    "tag": "git tag -s \"v$(jq -r .version package.json)\""
   },
   "keywords": [],
   "author": "Horace Liu",
