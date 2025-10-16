@@ -14,6 +14,7 @@ export interface IElectronAPI {
     openFile: (path: string) => Promise<EpubBook>
     closeFile: () => Promise<void>
     loadChapter: (id: string) => Promise<string>
+    platform: NodeJS.Platform
 }
 
 declare global {

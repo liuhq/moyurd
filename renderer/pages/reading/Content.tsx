@@ -31,7 +31,13 @@ const processHtml = (htmlString: string) => {
             .map((a) => [a, t.getAttribute(a)] as [string, string | null])
             .find(([_, a]) => a !== null) ?? null
         if (!src) continue
-        t.setAttribute(src[0], `moyurd://${src[1]}`)
+        if (window.electronAPI.platform == 'win32') {
+            // `moyurd:///C:\path\to\file`
+            t.setAttribute(src[0], `moyurd:///${src[1]}`)
+        } else {
+            // `moyurd:///path/to/file`
+            t.setAttribute(src[0], `moyurd://${src[1]}`)
+        }
     }
 
     // remove inline style
