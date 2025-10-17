@@ -38,6 +38,7 @@ const APP_ICON = nativeImage.createFromPath(ICON_PATH)
 
 const CACHE_PATH = join(app.getPath('userData'), 'cache.json')
 const CONFIG_PATH = join(app.getPath('userData'), 'config.json')
+const TEMP_PATH = join(app.getPath('userData'), 'temp_resource/')
 
 const EPUB_MAP = new Map<number, EpubFile>()
 
@@ -133,10 +134,8 @@ app.on('ready', async () => {
             EPUB_MAP.get(win.id)?.destroy()
             EPUB_MAP.delete(win.id)
         }
-        // const EXAMPLE_EPUB_PATH = './example/長月達平 - Re：從零開始的異世界生活 01.epub'
-        const EXAMPLE_RESOURCE_SAVE_PATH = './example/images'
         const [parsed, epub] = await parseEpub(path, {
-            resourceSavePath: EXAMPLE_RESOURCE_SAVE_PATH,
+            resourceSavePath: TEMP_PATH,
         })
         EPUB_MAP.set(win.id, epub)
         return parsed
