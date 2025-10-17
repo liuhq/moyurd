@@ -126,7 +126,7 @@ jobs:
       uses: softprops/action-gh-release@v2.3.3
       with:
         tag_name: ${{ env.PKG_VERSION }}
-        name: Release ${{ env.PKG_VERSION }}
+        name: ${{ env.PKG_VERSION }}
         draft: true
         files: dist/**/*
         make_latest: true
