@@ -14,6 +14,7 @@ const electronAPI: IElectronAPI = {
     openFile: (path) => ipcRenderer.invoke('data:open', path),
     closeFile: () => ipcRenderer.invoke('data:close'),
     loadChapter: (id) => ipcRenderer.invoke('data:load-chapter', id),
+    platform: process.platform,
 }
 
 contextBridge.exposeInMainWorld('electronAPI', electronAPI)
