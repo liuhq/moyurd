@@ -2,7 +2,7 @@
   "name": "moyurd",
   "productName": "moyurd",
   "version": "1.0.1",
-  "description": "A simple Epub Reader",
+  "description": "A keyboard-driven and simple Epub reader",
   "main": ".vite/build/main.js",
   "scripts": {
     "predev": "npm run fmt:run && npm run lint:check",

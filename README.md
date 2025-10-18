@@ -1,5 +1,5 @@
 # moyurd
-A simple Epub Reader
+A keyboard-driven and simple Epub reader.
 
 ## Installation
 

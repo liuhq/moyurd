@@ -17,7 +17,7 @@ const config: ForgeConfig = {
     makers: [
         new MakerSquirrel({
             name: 'moyurd',
-            description: 'A simple Epub Reader',
+            description: 'A keyboard-driven and simple Epub reader',
             authors: 'Horace Liu',
             setupIcon: './images/icon.ico',
         }),
@@ -26,8 +26,8 @@ const config: ForgeConfig = {
             options: {
                 name: 'moyurd',
                 productName: 'moyurd',
-                description: 'A simple Epub Reader',
-                productDescription: 'A simple Epub Reader',
+                description: 'A keyboard-driven and simple Epub reader',
+                productDescription: 'A keyboard-driven and simple Epub reader',
                 icon: './images/icon.png',
                 maintainer: 'Horace Liu',
                 homepage: 'https://github.com/liuhq/moyurd',
