@@ -5,7 +5,13 @@ A keyboard-driven and simple Epub reader.
 
 ### Archlinux
 
->AUR todo...
+Get [moyurd](https://aur.archlinux.org/packages/moyurd) from AUR
+
+or
+
+```sh
+paru -S moyurd
+```
 
 ### Download
 
