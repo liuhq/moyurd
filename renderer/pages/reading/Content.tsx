@@ -15,49 +15,8 @@ import {
     untrack,
 } from 'solid-js'
 import { produce, unwrap } from 'solid-js/store'
-
-const processHtml = (htmlString: string) => {
-    const div = document.createElement('div')
-    div.innerHTML = htmlString
-
-    // resolve file path
-    const imgTags = [
-        ...div.querySelectorAll('img'),
-        ...div.querySelectorAll('image'),
-    ]
-    const attr = ['src', 'xlink:href']
-    for (const t of imgTags) {
-        const src = attr
-            .map((a) => [a, t.getAttribute(a)] as [string, string | null])
-            .find(([_, a]) => a !== null) ?? null
-        if (!src) continue
-        if (window.electronAPI.platform == 'win32') {
-            // `moyurd:///C:\path\to\file`
-            t.setAttribute(src[0], `moyurd:///${src[1]}`)
-        } else {
-            // `moyurd:///path/to/file`
-            t.setAttribute(src[0], `moyurd://${src[1]}`)
-        }
-    }
-
-    // remove inline style
-    for (const c of div.children) {
-        const style = c.getAttribute('style')
-        if (!style) continue
-        c.removeAttribute('style')
-    }
-    return div.innerHTML
-}
-
-const RenderHtml: Component<
-    { raw: string }
-> = (props) => (
-    <div
-        class='w-full h-full place-content-center-safe *:[&_img,&_svg]:w-1/4 *:[&_img,&_svg]:m-auto'
-        /* eslint-disable-next-line solid/no-innerhtml */
-        innerHTML={props.raw}
-    />
-)
+import RenderHtml from './RenderHtml'
+import ScrollView from './ScrollView'
 
 const Content: Component<
     {
@@ -81,11 +40,15 @@ const Content: Component<
             else return await window.electronAPI.loadChapter(chapter)
         },
     )
-    const processedContent = () => {
-        const contentCopy = content()
-        if (!contentCopy) return ''
-        return processHtml(contentCopy)
+    const anchor = () => {
+        const current = cache.recent.find((rnt) => rnt.path == filePath())
+        if (!current) return undefined
+        if (current.lastChapter != props.currentChapter) return undefined
+        return current.lastAnchor
     }
+    const [cacheAnchor, setCacheAnchor] = createSignal(
+        anchor(),
+    )
 
     onMount(() => {
         eventBus.on('close', async () => {
@@ -105,6 +68,7 @@ const Content: Component<
                             props.tocFlat.idMap.get(currentChapterCopy)
                                 ?? 1
                         )
+                        currentBook.lastAnchor = untrack(cacheAnchor)
                         currentBook.progress = untrack(() =>
                             ind
                             / (props.tocFlat.items.length - 1)
@@ -115,6 +79,7 @@ const Content: Component<
                             bookName: untrack(() => props.bookName),
                             lastChapter: currentChapterCopy,
                             lastRead: new Date().toISOString(),
+                            lastAnchor: untrack(cacheAnchor),
                             progress: 0,
                         })
                     }
@@ -157,25 +122,28 @@ const Content: Component<
         }, cleanerId)
     })
 
-    onCleanup(() => {
-        eventBus.offHandlers(cleanerId)
-    })
+    onCleanup(() => eventBus.offHandlers(cleanerId))
 
     return (
-        <Suspense
-            fallback={<RenderHtml raw={processHtml(lastContent())} />}
+        <ScrollView
+            anchor={anchor()}
+            setAnchor={setCacheAnchor}
         >
-            <Show
-                when={props.currentChapter !== ''}
-                fallback={
-                    <div class='w-full h-full place-content-center-safe text-3xl text-center'>
-                        {props.bookName}
-                    </div>
-                }
+            <Suspense
+                fallback={<RenderHtml raw={lastContent()} />}
             >
-                <RenderHtml raw={processedContent()} />
-            </Show>
-        </Suspense>
+                <Show
+                    when={props.currentChapter !== ''}
+                    fallback={
+                        <div class='w-full h-full place-content-center-safe text-3xl text-center'>
+                            {props.bookName}
+                        </div>
+                    }
+                >
+                    <RenderHtml raw={content() ?? ''} />
+                </Show>
+            </Suspense>
+        </ScrollView>
     )
 }
 

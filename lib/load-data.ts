@@ -7,6 +7,7 @@ const _bookCache = z.object({
     bookName: z.string(),
     lastRead: z.iso.datetime(),
     lastChapter: z.string(),
+    lastAnchor: z.optional(z.string()),
     progress: z.number().check(z.minimum(0), z.maximum(1)),
 })
 const _dataCache = z.object({

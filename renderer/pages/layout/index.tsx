@@ -35,7 +35,10 @@ const Layout: ParentComponent = (props) => {
         applyTheme(moyurdConfig.colors)
 
         /// register global listener
-        eventBus.on('quit', window.electronAPI.appQuit, cleanerId)
+        eventBus.on('quit', async () => {
+            eventBus.emit('close')
+            await window.electronAPI.appQuit()
+        }, cleanerId)
         eventBus.on('win', async (state) => {
             switch (state) {
                 case 'minimize':
