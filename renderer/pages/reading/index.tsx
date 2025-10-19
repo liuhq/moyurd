@@ -29,8 +29,6 @@ const Reading: Component = () => {
         cache.recent.find((rnt) => rnt.path == filePath())?.lastChapter ?? '',
     )
 
-    let containerRef: HTMLDivElement
-
     const [book] = createResource(
         filePath,
         async (path: string) => await window.electronAPI.openFile(path),
@@ -46,22 +44,6 @@ const Reading: Component = () => {
                 return
             }
             setShowToc(show)
-        }, cleanerId)
-        eventBus.on('loadnext', async () => {
-            requestAnimationFrame(() =>
-                containerRef!.scrollTo({
-                    top: 0,
-                    behavior: 'instant',
-                })
-            )
-        }, cleanerId)
-        eventBus.on('loadprev', async () => {
-            requestAnimationFrame(() =>
-                containerRef!.scrollTo({
-                    top: 0,
-                    behavior: 'instant',
-                })
-            )
         }, cleanerId)
     })
 
@@ -79,91 +61,13 @@ const Reading: Component = () => {
     })
 
     createEffect(() => {
-        if (showKeymapHelp()) return
-
-        const scrollCleanerId = 'scroll'
-        eventBus.on('scrollup', (n) => {
-            requestAnimationFrame(() => {
-                if (n == 'top') {
-                    containerRef!.scrollTo({
-                        top: 0,
-                        behavior: 'smooth',
-                    })
-                    return
-                }
-                let scrollDelta: number
-                switch (n) {
-                    case 'half':
-                        scrollDelta = -document.documentElement.clientHeight / 2
-                        break
-                    case 'page':
-                        scrollDelta = -document.documentElement.clientHeight
-                        break
-                    default:
-                        {
-                            const line = n ?? 1
-                            const lineHeight = parseFloat(
-                                window
-                                    .getComputedStyle(containerRef!)
-                                    .lineHeight,
-                            )
-                            scrollDelta = -lineHeight * line
-                        }
-                        break
-                }
-                containerRef!.scrollBy({
-                    top: scrollDelta,
-                    behavior: 'smooth',
-                })
-            })
-        }, scrollCleanerId)
-        eventBus.on('scrolldown', (n) => {
-            requestAnimationFrame(() => {
-                if (n == 'bottom') {
-                    containerRef!.scrollTo({
-                        top: containerRef!.scrollHeight,
-                        behavior: 'smooth',
-                    })
-                    return
-                }
-                let scrollDelta: number
-                switch (n) {
-                    case 'half':
-                        scrollDelta = document.documentElement.clientHeight / 2
-                        break
-                    case 'page':
-                        scrollDelta = document.documentElement.clientHeight
-                        break
-                    default:
-                        {
-                            const line = n ?? 1
-                            const lineHeight = parseFloat(
-                                window
-                                    .getComputedStyle(containerRef!)
-                                    .lineHeight,
-                            )
-                            scrollDelta = lineHeight * line
-                        }
-                        break
-                }
-                containerRef!.scrollBy({
-                    top: scrollDelta,
-                    behavior: 'smooth',
-                })
-            })
-        }, scrollCleanerId)
-
-        onCleanup(() => eventBus.offHandlers(scrollCleanerId))
-    })
-
-    createEffect(() => {
         if (book.error) {
             eventBus.emit('error', ['FILE_NOT_FOUND', book.error])
         }
     })
 
     return (
-        <div ref={containerRef!} class='h-full w-full py-2 pl-2 overflow-auto'>
+        <div class='h-full w-full py-2 pl-2'>
             <Suspense
                 fallback={
                     <p class='w-full h-full place-content-center-safe text-3xl text-center'>
