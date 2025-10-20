@@ -1,32 +1,23 @@
-import type { CommandEvents } from '#config/command'
 import { useConfig } from '#renderer/context/ConfigProvider'
 import { useEventBus } from '#renderer/context/EventBusProvider'
 import { applyTheme } from '#renderer/hooks/applyTheme'
 import { registerKeymap } from '#renderer/hooks/useKeybind'
 import {
-    setShowCommandLine,
     setShowKeymapHelp,
-    showCommandLine,
     showKeymapHelp,
     showSearchLine,
 } from '#renderer/store'
 import {
     createEffect,
-    createSignal,
     Match,
-    on,
     onCleanup,
     onMount,
     type ParentComponent,
     Switch,
 } from 'solid-js'
-import Commandline from './commandline'
 import KeymapHelp from './keymapHelp'
 
 const Layout: ParentComponent = (props) => {
-    const [command, setCommand] = createSignal<
-        [string, CommandEvents[keyof CommandEvents]] | null
-    >(null)
     const moyurdConfig = useConfig()
     const eventBus = useEventBus()
     const cleanerId = 'app'
@@ -72,17 +63,6 @@ const Layout: ParentComponent = (props) => {
             if (show == showKeymapHelp()) return
             setShowKeymapHelp(show)
         }, cleanerId)
-        eventBus.on('commandline', (show) => {
-            if (show == undefined) {
-                eventBus.emit('error', [
-                    'MISSING_ARGUMENT',
-                    'commandline <true | false>',
-                ])
-                return
-            }
-            if (show == showCommandLine() || showSearchLine()) return
-            setShowCommandLine(show)
-        }, cleanerId)
         eventBus.on('error', (msg) => {
             if (!msg) return
             console.error(`${msg[0]}: ${msg[1]}`)
@@ -95,34 +75,15 @@ const Layout: ParentComponent = (props) => {
 
     /// register shortcut keys
     createEffect(() => {
-        if (showCommandLine() || showSearchLine() || showKeymapHelp()) return
+        if (showSearchLine() || showKeymapHelp()) return
         registerKeymap('global')
     })
-
-    /// handle the command from commandline
-    createEffect(on(command, (cmd) => {
-        if (!cmd) return
-        if (!cmd[0]) return
-        if (cmd[0] == 'commandline' || cmd[0] == 'searchline') {
-            eventBus.emit('error', [
-                'COMMAND_NOT_FOUND',
-                `${cmd[0]} is an internal command`,
-            ])
-            setCommand(null)
-            return
-        }
-        eventBus.emit(cmd[0] as keyof CommandEvents, cmd[1])
-        setCommand(null)
-    }))
 
     return (
         <>
             <div class='h-dvh w-dvw bg-bg text-fg'>
                 {props.children}
                 <Switch>
-                    <Match when={showCommandLine()}>
-                        <Commandline commit={setCommand} />
-                    </Match>
                     <Match when={showKeymapHelp()}>
                         <KeymapHelp />
                     </Match>

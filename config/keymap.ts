@@ -4,7 +4,6 @@ export type KeymapMode =
     | 'global'
     | 'booklist'
     | 'reading'
-    | 'commandline'
     | 'toc'
     | 'searchline'
     | 'keymap'
@@ -50,11 +49,6 @@ export const keymap: KeymapConfig = {
             command: 'keymap',
             payload: true,
             desc: 'Show Keymap Help',
-        },
-        'Shift+:': {
-            command: 'commandline',
-            payload: true,
-            desc: 'Open Command Line',
         },
     },
     'booklist': {
@@ -169,17 +163,6 @@ export const keymap: KeymapConfig = {
             command: 'scrolldown',
             payload: 'bottom',
             desc: 'Scroll to Bottom',
-        },
-    },
-    'commandline': {
-        'Escape': {
-            command: 'commandline',
-            payload: false,
-            desc: 'Close Command Line',
-        },
-        'Enter': {
-            command: 'commit',
-            desc: 'Run Command',
         },
     },
     'toc': {

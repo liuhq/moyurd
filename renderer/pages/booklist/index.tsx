@@ -15,7 +15,6 @@ import {
 import {
     filePath,
     setFilePath,
-    showCommandLine,
     showKeymapHelp,
     showSearchLine,
 } from '../../store'
@@ -80,7 +79,7 @@ const BookList: Component = () => {
 
     /// register shortcut keys
     createEffect(() => {
-        if (showCommandLine() || showSearchLine() || showKeymapHelp()) return
+        if (showSearchLine() || showKeymapHelp()) return
         registerKeymap('booklist')
     })
 

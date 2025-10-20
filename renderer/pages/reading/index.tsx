@@ -1,12 +1,7 @@
 import { useCache } from '#renderer/context/CacheProvider'
 import { useEventBus } from '#renderer/context/EventBusProvider'
 import { registerKeymap } from '#renderer/hooks/useKeybind'
-import {
-    filePath,
-    showCommandLine,
-    showKeymapHelp,
-    showSearchLine,
-} from '#renderer/store'
+import { filePath, showKeymapHelp, showSearchLine } from '#renderer/store'
 import {
     type Component,
     createEffect,
@@ -52,8 +47,7 @@ const Reading: Component = () => {
     /// register shortcut keys
     createEffect(() => {
         if (
-            showCommandLine()
-            || showSearchLine()
+            showSearchLine()
             || showToc()
             || showKeymapHelp()
         ) return

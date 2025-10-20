@@ -123,10 +123,6 @@ const KeymapHelp = () => {
                             </Match>
                         </Switch>
                         <KeymapCate
-                            title='command line'
-                            kc={keymap['commandline']}
-                        />
-                        <KeymapCate
                             title='global'
                             kc={keymap['global']}
                         />

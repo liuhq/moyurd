@@ -18,8 +18,7 @@ const _commandEvents = z.object({
     quit: z.void(),
     win: z.enum(['maximize', 'max', 'minimize', 'min', 'unmaximize', 'unmax']),
 
-    // commandline
-    commandline: z.boolean(),
+    // input line
     commit: z.void(),
 
     // booklist
