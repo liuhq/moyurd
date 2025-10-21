@@ -92,7 +92,16 @@ const BookList: Component = () => {
 
     return (
         <div class='h-full w-full p-8 flex flex-col gap-2'>
-            <h1 class='text-2xl'>Recent Books</h1>
+            <header class='w-full flex flex-wrap items-end gap-2'>
+                <h1 class='text-2xl'>Recent Books</h1>
+                <span class='text-sub-fg text-sm italic'>
+                    Press{' '}
+                    <kbd class='border border-b-2 rounded-sm py-0.5 px-1 not-italic'>
+                        Shift+/
+                    </kbd>{' '}
+                    to to get help with shortcut keys
+                </span>
+            </header>
             <Show
                 when={cache.recent.length > 0}
                 fallback={<div class='text-sub-fg italic'>No book history</div>}
