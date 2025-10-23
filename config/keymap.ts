@@ -30,7 +30,7 @@ export const keymap: KeymapConfig = {
             command: 'quit',
             desc: 'Quit',
         },
-        ' ': {
+        'Space': {
             command: 'win',
             payload: 'minimize',
             desc: 'Minimize Current Window',
