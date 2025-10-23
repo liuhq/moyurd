@@ -1,26 +1,26 @@
 {
   "colors": {
-    "bg": "#dce0e8",
-    "floatingBg": "#ccd0da",
-    "fg": "#4c4f69",
-    "subFg": "#6c6f85",
+    "bg": "#eceff4",
+    "floatingBg": "#e5e9f0",
+    "fg": "#2e3440",
+    "subFg": "#4c566a",
 
-    "listSelectBg": "#4c4f69",
-    "listCurrentBg": "#7287fd",
-    "listSelectFg": "#dce0e8",
-    "listSelectSubFg": "#ccd0da",
+    "listSelectBg": "#5e81ac",
+    "listCurrentBg": "#81a1c1",
+    "listSelectFg": "#eceff4",
+    "listSelectSubFg": "#d8dee9",
 
-    "border": "#9ca0b0",
-    "shadow": "#00000030"
+    "border": "#d8dee9",
+    "shadow": "#3b425230"
   },
   "popup": {
     "width": "300",
     "gap": "4",
     "radius": "0",
     "colors": {
-      "info": "#179299",
-      "warn": "#df8e1d",
-      "error": "#d20f39"
+      "info": "#88c0d0",
+      "warn": "#ebcb8b",
+      "error": "#bf616a"
     }
   }
 }
