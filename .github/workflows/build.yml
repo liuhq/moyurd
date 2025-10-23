@@ -30,7 +30,7 @@ jobs:
         zip moyurd-asar-linux-x64-${PKG_VERSION}.zip resources/app.asar resources/icon.png
     - name: Generate ASAR checksum
       run: |
-        cd out
+        cd out/moyurd-linux-x64
         sha256sum moyurd-asar-linux-x64-${PKG_VERSION}.zip > moyurd-asar-linux-x64-${PKG_VERSION}.zip.sha256
     - name: Zip package
       run: |
@@ -47,8 +47,8 @@ jobs:
         path: |
           out/moyurd-pkg-linux-x64-${{ env.PKG_VERSION }}.zip
           out/moyurd-pkg-linux-x64-${{ env.PKG_VERSION }}.zip.sha256
-          out/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip
-          out/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip.sha256
+          out/out/moyurd-linux-x64/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip
+          out/out/moyurd-linux-x64/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip.sha256
         compression-level: 6
         overwrite: true
     - name: Make
