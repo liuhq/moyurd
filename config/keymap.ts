@@ -5,7 +5,7 @@ export type KeymapMode =
     | 'booklist'
     | 'reading'
     | 'toc'
-    | 'searchline'
+    // | 'searchline'
     | 'keymap'
 
 type KeymapEntry = {
@@ -106,11 +106,11 @@ export const keymap: KeymapConfig = {
             command: 'close',
             desc: 'Close Book',
         },
-        '/': {
-            command: 'searchline',
-            payload: true,
-            desc: 'Open Search Line',
-        },
+        // '/': {
+        //     command: 'searchline',
+        //     payload: true,
+        //     desc: 'Open Search Line',
+        // },
         'T': {
             command: 'toc',
             payload: true,
@@ -216,17 +216,17 @@ export const keymap: KeymapConfig = {
             desc: 'Jump to Seleted TOC Item',
         },
     },
-    'searchline': {
-        // 'Escape': {
-        //     command: 'searchline',
-        //     payload: false,
-        //     desc: 'Close Search Line',
-        // },
-        // 'Enter': {
-        //     command: 'commit',
-        //     desc: 'Confirm Search',
-        // },
-    },
+    // 'searchline': {
+    // 'Escape': {
+    //     command: 'searchline',
+    //     payload: false,
+    //     desc: 'Close Search Line',
+    // },
+    // 'Enter': {
+    //     command: 'commit',
+    //     desc: 'Confirm Search',
+    // },
+    // },
     'keymap': {
         'Escape': {
             command: 'keymap',
