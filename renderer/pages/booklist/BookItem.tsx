@@ -34,7 +34,9 @@ const BookItem: Component<
         <li
             ref={props.ref}
             class='py-1 px-4 flex items-center gap-2'
-            classList={{ 'bg-inverse-bg text-inverse-fg': props.selected }}
+            classList={{
+                'bg-list-select-bg text-list-select-fg': props.selected,
+            }}
         >
             <div class='flex-1'>
                 <p>
@@ -50,7 +52,7 @@ const BookItem: Component<
                 <p
                     class={`texs-sm ${
                         props.selected
-                            ? 'text-inverse-fg'
+                            ? 'text-list-select-sub-fg'
                             : 'text-sub-fg'
                     }`}
                 >

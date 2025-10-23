@@ -96,7 +96,7 @@ const BookList: Component = () => {
                 <h1 class='text-2xl'>Recent Books</h1>
                 <span class='text-sub-fg text-sm italic'>
                     Press{' '}
-                    <kbd class='border border-b-2 rounded-sm py-0.5 px-1 not-italic'>
+                    <kbd class='border border-b-4 border-border rounded-sm py-0.5 px-1 not-italic'>
                         Shift+/
                     </kbd>{' '}
                     to to get help with shortcut keys

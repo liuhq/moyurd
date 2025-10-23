@@ -79,8 +79,8 @@ const Toc: Component<
     })
 
     const itemStyle = {
-        current: 'bg-accent text-inverse-fg',
-        select: 'bg-inverse-bg text-inverse-fg',
+        current: 'bg-list-current-bg text-list-select-fg',
+        select: 'bg-list-select-bg text-list-select-fg',
     }
 
     return (

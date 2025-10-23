@@ -1,20 +1,23 @@
 {
   "colors": {
     "bg": "#dce0e8",
+    "floatingBg": "#ccd0da",
     "fg": "#4c4f69",
     "subFg": "#6c6f85",
-    "inverseBg": "#4c4f69",
-    "inverseFg": "#dce0e8",
-    "shadow": "#00000030",
-    "accent": "#7287fd"
+
+    "listSelectBg": "#4c4f69",
+    "listCurrentBg": "#7287fd",
+    "listSelectFg": "#dce0e8",
+    "listSelectSubFg": "#ccd0da",
+
+    "border": "#9ca0b0",
+    "shadow": "#00000030"
   },
   "popup": {
     "width": "300",
     "gap": "4",
     "radius": "0",
     "colors": {
-      "bg": "#ccd0da",
-      "border": "#9ca0b0",
       "info": "#179299",
       "warn": "#df8e1d",
       "error": "#d20f39"

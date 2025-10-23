@@ -53,20 +53,23 @@ const _color = z.string().check(
 const _config = z.object({
     colors: z.object({
         bg: _color,
+        floatingBg: _color,
         fg: _color,
         subFg: _color,
-        inverseBg: _color,
-        inverseFg: _color,
+
+        listSelectBg: _color,
+        listCurrentBg: _color,
+        listSelectFg: _color,
+        listSelectSubFg: _color,
+
+        border: _color,
         shadow: _color,
-        accent: _color,
     }),
     popup: z.object({
         width: _size,
         gap: _size,
         radius: _size,
         colors: z.object({
-            bg: _color,
-            border: _color,
             info: _color,
             warn: _color,
             error: _color,

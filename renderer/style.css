@@ -2,19 +2,23 @@
 
 @theme {
   --color-*: initial;
+
   --color-bg: var(--bg);
+  --color-floating-bg: var(--floating-bg);
   --color-fg: var(--fg);
   --color-sub-fg: var(--sub-fg);
-  --color-inverse-bg: var(--inverse-bg);
-  --color-inverse-fg: var(--inverse-fg);
+
+  --color-list-select-bg: var(--list-select-bg);
+  --color-list-select-fg: var(--list-select-fg);
+  --color-list-select-sub-fg: var(--list-select-sub-fg);
+  --color-list-current-bg: var(--list-current-bg);
+
+  --color-border: var(--border);
   --color-panel-mask: var(--panel-mask);
-  --color-accent: var(--accent);
 
   --spacing-popup-w: var(--popup-w);
   --spacing-popup-gap: var(--popup-gap);
   --radius-popup-radius: var(--popup-radius);
-  --color-popup-bg: var(--popup-bg);
-  --color-popup-border: var(--popup-border);
   --color-info: var(--info);
   --color-warn: var(--warn);
   --color-error: var(--error);
@@ -24,7 +28,7 @@
     width: 8px;
 }
 *::-webkit-scrollbar-thumb {
-    background-color: var(--inverse-bg);
+    background-color: var(--list-select-bg);
 }
 *::-webkit-scrollbar-track {
     background-color: transparent;

@@ -12,7 +12,7 @@ const KeymapCate: Component<{ title: string; kc: Keymap }> = (props) => {
                 >
                     {(ke, _) => (
                         <li class='flex flex-wrap gap-4'>
-                            <kbd class='px-1 border border-b-4 rounded-sm text-xs'>
+                            <kbd class='px-1 border border-b-4 border-border rounded-sm text-xs'>
                                 {ke()[0]}
                             </kbd>
                             {ke()[1].desc}

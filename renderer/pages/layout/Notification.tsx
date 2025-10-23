@@ -18,7 +18,7 @@ const NtfItem: Component<NotifyItem> = (props) => {
         ERROR: 'font-bold text-error',
     }
     return (
-        <section class='text-sm p-1 border border-popup-border rounded-popup-radius bg-popup-bg text-fg'>
+        <section class='text-sm p-1 border border-border rounded-popup-radius bg-floating-bg text-fg'>
             <header class={levelStyles[props.level]}>{props.level}</header>
             <main>{props.message}</main>
         </section>
