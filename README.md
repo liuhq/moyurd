@@ -39,7 +39,7 @@ Press `?` (`shift+/`) to get help with shortcut keys.
 
 ### Configuration
 
-The configuration file is usually located at `XDG_CONFIG_HOME/moyurd/moyurd.config`
+The configuration file is usually located at `XDG_CONFIG_HOME/moyurd/config.json`
 
 You can get the default configuration and available options from [config.default.json](./config/config.default.json)
 
