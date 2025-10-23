@@ -39,6 +39,10 @@ export const saveCache = async (
     await writeFile(path, JSON.stringify(parsed.data))
 }
 
+const _size = z.int().check(
+    z.nonnegative(),
+)
+
 const _color = z.string().check(
     z.toUpperCase(),
     z.minLength(7),
@@ -55,6 +59,18 @@ const _config = z.object({
         inverseFg: _color,
         shadow: _color,
         accent: _color,
+    }),
+    popup: z.object({
+        width: _size,
+        gap: _size,
+        radius: _size,
+        colors: z.object({
+            bg: _color,
+            border: _color,
+            info: _color,
+            warn: _color,
+            error: _color,
+        }),
     }),
 })
 

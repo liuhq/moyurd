@@ -9,6 +9,15 @@
   --color-inverse-fg: var(--inverse-fg);
   --color-panel-mask: var(--panel-mask);
   --color-accent: var(--accent);
+
+  --spacing-popup-w: var(--popup-w);
+  --spacing-popup-gap: var(--popup-gap);
+  --radius-popup-radius: var(--popup-radius);
+  --color-popup-bg: var(--popup-bg);
+  --color-popup-border: var(--popup-border);
+  --color-info: var(--info);
+  --color-warn: var(--warn);
+  --color-error: var(--error);
 }
 
 *::-webkit-scrollbar {

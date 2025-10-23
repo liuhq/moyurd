@@ -7,5 +7,17 @@
     "inverseFg": "#dce0e8",
     "shadow": "#00000030",
     "accent": "#7287fd"
+  },
+  "popup": {
+    "width": "300",
+    "gap": "4",
+    "radius": "0",
+    "colors": {
+      "bg": "#ccd0da",
+      "border": "#9ca0b0",
+      "info": "#179299",
+      "warn": "#df8e1d",
+      "error": "#d20f39"
+    }
   }
 }
