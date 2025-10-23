@@ -14,9 +14,9 @@
     "shadow": "#3b425230"
   },
   "popup": {
-    "width": "300",
-    "gap": "4",
-    "radius": "0",
+    "width": 300,
+    "gap": 4,
+    "radius": 0,
     "colors": {
       "info": "#88c0d0",
       "warn": "#ebcb8b",
