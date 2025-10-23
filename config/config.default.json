@@ -1,4 +1,6 @@
 {
+  "width": 800,
+  "height": 600,
   "colors": {
     "bg": "#eceff4",
     "floatingBg": "#e5e9f0",

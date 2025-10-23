@@ -51,6 +51,8 @@ const _color = z.string().check(
 )
 
 const _config = z.object({
+    width: _size,
+    height: _size,
     colors: z.object({
         bg: _color,
         floatingBg: _color,

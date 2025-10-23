@@ -44,10 +44,12 @@ const EPUB_MAP = new Map<number, EpubFile>()
 
 const createWindow = async (config: {
     bg: string
+    width: number
+    height: number
 }) => {
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: config.width,
+        height: config.height,
         backgroundColor: config.bg,
         frame: false,
         resizable: true,
@@ -80,7 +82,11 @@ const createWindow = async (config: {
 app.on('ready', async () => {
     const config = await loadConfig(CONFIG_PATH, defaultConfig)
 
-    const win = await createWindow({ bg: config.colors.bg })
+    const win = await createWindow({
+        bg: config.colors.bg,
+        width: config.width,
+        height: config.height,
+    })
 
     protocol.handle('moyurd', (req) => {
         const filePath = req.url.replace('moyurd://', 'file://')
@@ -170,6 +176,10 @@ app.on('activate', async () => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length == 0) {
         const config = await loadConfig(CONFIG_PATH, defaultConfig)
-        await createWindow({ bg: config.colors.bg })
+        await createWindow({
+            bg: config.colors.bg,
+            width: config.width,
+            height: config.height,
+        })
     }
 })
