@@ -4,16 +4,27 @@ import { z } from 'zod/mini'
 const _mode = z.enum(['normal', 'command', 'toc', 'search', 'keymap'])
 export type Mode = z.infer<typeof _mode>
 
+const _infoMessage = z.enum([
+    'INFO',
+])
+const _warnMessage = z.enum([
+    'WARN',
+])
 const _errorMessage = z.enum([
+    'ERROR',
     'EMPTY_INPUT',
     'COMMAND_NOT_FOUND',
     'MISSING_ARGUMENT',
     'FILE_NOT_FOUND',
 ])
+export type InfoMessage = z.infer<typeof _infoMessage>
+export type WarnMessage = z.infer<typeof _warnMessage>
 export type ErrorMessage = z.infer<typeof _errorMessage>
 
 const _commandEvents = z.object({
     // app
+    info: z.tuple([_infoMessage, z.string()]),
+    warn: z.tuple([_warnMessage, z.string()]),
     error: z.tuple([_errorMessage, z.string()]),
     quit: z.void(),
     win: z.enum(['maximize', 'max', 'minimize', 'min', 'unmaximize', 'unmax']),
