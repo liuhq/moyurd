@@ -47,8 +47,8 @@ jobs:
         path: |
           out/moyurd-pkg-linux-x64-${{ env.PKG_VERSION }}.zip
           out/moyurd-pkg-linux-x64-${{ env.PKG_VERSION }}.zip.sha256
-          out/out/moyurd-linux-x64/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip
-          out/out/moyurd-linux-x64/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip.sha256
+          out/moyurd-linux-x64/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip
+          out/moyurd-linux-x64/moyurd-asar-linux-x64-${{ env.PKG_VERSION }}.zip.sha256
         compression-level: 6
         overwrite: true
     - name: Make
