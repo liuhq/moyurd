@@ -19,8 +19,13 @@ const NtfItem: Component<NotifyItem> = (props) => {
     }
     return (
         <section class='text-sm p-1 border border-border rounded-popup-radius bg-floating-bg text-fg'>
-            <header class={levelStyles[props.level]}>{props.level}</header>
-            <main>{props.message}</main>
+            <header class='flex gap-popup-gap border-b border-b-border pb-1 mb-1'>
+                <span class={levelStyles[props.level]}>{props.level}</span>
+                <span class='text-sub-fg'>{props.message[0]}</span>
+            </header>
+            <main>
+                {props.message[1]}
+            </main>
         </section>
     )
 }
