@@ -74,7 +74,7 @@ const Toc: Component<
     createEffect(() => {
         targetRef[target()].scrollIntoView({
             behavior: 'instant',
-            block: 'center',
+            block: 'nearest',
         })
     })
 
@@ -101,6 +101,7 @@ const Toc: Component<
                                         }}
                                         onClick={(e) => {
                                             e.stopPropagation()
+                                            setTarget(index)
                                             props.setCurrentChapter(
                                                 item().id,
                                             )
