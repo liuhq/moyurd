@@ -2,16 +2,16 @@ import type { ErrorMessage, InfoMessage, WarnMessage } from '#config/command'
 import { type Component, For } from 'solid-js'
 import type { Store } from 'solid-js/store'
 
-export type NotifyItem = {
+export type NotificationItemContent = {
     level: 'INFO' | 'WARN' | 'ERROR'
     message: [InfoMessage | WarnMessage | ErrorMessage, string]
 }
 
 type NotificationProps = {
-    notify: Store<NotifyItem[]>
+    notifications: Store<NotificationItemContent[]>
 }
 
-const NtfItem: Component<NotifyItem> = (props) => {
+const NotificationItem: Component<NotificationItemContent> = (props) => {
     const levelStyles = {
         INFO: 'font-bold text-info',
         WARN: 'font-bold text-warn',
@@ -33,9 +33,9 @@ const NtfItem: Component<NotifyItem> = (props) => {
 const Notification: Component<NotificationProps> = (props) => {
     return (
         <div class='flex flex-col-reverse gap-popup-gap w-popup-w fixed bottom-popup-gap right-popup-gap'>
-            <For each={props.notify}>
+            <For each={props.notifications}>
                 {(item) => (
-                    <NtfItem
+                    <NotificationItem
                         level={item.level}
                         message={item.message}
                     />

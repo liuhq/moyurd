@@ -19,13 +19,15 @@ import {
 import { createStore, produce } from 'solid-js/store'
 import { Portal } from 'solid-js/web'
 import KeymapHelp from './keymapHelp'
-import Notification, { type NotifyItem } from './Notification'
+import Notification, { type NotificationItemContent } from './Notification'
 
 const Layout: ParentComponent = (props) => {
     const moyurdConfig = useConfig()
     const eventBus = useEventBus()
     const cleanerId = 'app'
-    const [notify, setNotify] = createStore<NotifyItem[]>([])
+    const [notifications, setNotifications] = createStore<
+        NotificationItemContent[]
+    >([])
 
     onMount(() => {
         applyTheme(moyurdConfig)
@@ -72,7 +74,7 @@ const Layout: ParentComponent = (props) => {
         eventBus.on('info', (msg) => {
             if (!msg) return
             console.info(`${msg[0]}: ${msg[1]}`)
-            setNotify(produce((ns) =>
+            setNotifications(produce((ns) =>
                 ns.push({
                     level: 'INFO',
                     message: msg,
@@ -82,7 +84,7 @@ const Layout: ParentComponent = (props) => {
         eventBus.on('warn', (msg) => {
             if (!msg) return
             console.warn(`${msg[0]}: ${msg[1]}`)
-            setNotify(produce((ns) =>
+            setNotifications(produce((ns) =>
                 ns.push({
                     level: 'WARN',
                     message: msg,
@@ -92,7 +94,7 @@ const Layout: ParentComponent = (props) => {
         eventBus.on('error', (msg) => {
             if (!msg) return
             console.error(`${msg[0]}: ${msg[1]}`)
-            setNotify(produce((ns) =>
+            setNotifications(produce((ns) =>
                 ns.push({
                     level: 'ERROR',
                     message: msg,
@@ -113,8 +115,11 @@ const Layout: ParentComponent = (props) => {
 
     /// close notification with ms timeout
     createEffect(() => {
-        if (notify.length <= 0) return
-        window.setTimeout(() => setNotify(produce((ns) => ns.shift())), 5000)
+        if (notifications.length <= 0) return
+        window.setTimeout(
+            () => setNotifications(produce((ns) => ns.shift())),
+            5000,
+        )
     })
 
     return (
@@ -126,9 +131,9 @@ const Layout: ParentComponent = (props) => {
                         <KeymapHelp />
                     </Match>
                 </Switch>
-                <Show when={notify.length > 0}>
+                <Show when={notifications.length > 0}>
                     <Portal>
-                        <Notification notify={notify} />
+                        <Notification notifications={notifications} />
                     </Portal>
                 </Show>
             </div>
