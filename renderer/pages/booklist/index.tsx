@@ -103,7 +103,7 @@ const BookList: Component = () => {
                 when={cache.recent.length > 0}
                 fallback={<div class='text-sub-fg italic'>No book history</div>}
             >
-                <ul class='no-drag w-full h-full pr-1 flex flex-col gap-2 overflow-auto'>
+                <ul class='w-full h-full pr-1 flex flex-col gap-2 overflow-auto'>
                     <Index each={cache.recent}>
                         {(item, index) => (
                             <BookItem
