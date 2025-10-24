@@ -5,7 +5,11 @@ import { createEffect, onCleanup } from 'solid-js'
 const normalizeKeySeq = (keySeq: string) => {
     const parts = keySeq
         .split('+')
-        .map((p) => p.toLowerCase() == 'space' ? ' ' : p.trim().toLowerCase())
+        .map((p) =>
+            p.toLowerCase() == 'space' || p == ' '
+                ? ' '
+                : p.trim().toLowerCase()
+        )
         .sort()
     return [...new Set(parts)].join('+')
 }
