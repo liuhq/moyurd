@@ -109,7 +109,7 @@ const Layout: ParentComponent = (props) => {
 
     /// register shortcut keys
     createEffect(() => {
-        if (showSearchLine() || showKeymapHelp()) return
+        if (showSearchLine()) return
         registerKeymap('global')
     })
 
