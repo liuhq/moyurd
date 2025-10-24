@@ -1,5 +1,6 @@
 import type { Keymap } from '#config/keymap'
 import { type Component, Index } from 'solid-js'
+import Kbd from './Kbd'
 
 const KeymapCate: Component<{ title: string; kc: Keymap }> = (props) => {
     return (
@@ -12,9 +13,7 @@ const KeymapCate: Component<{ title: string; kc: Keymap }> = (props) => {
                 >
                     {(ke, _) => (
                         <li class='flex flex-wrap gap-4'>
-                            <kbd class='px-1 border border-b-4 border-border rounded-sm text-xs'>
-                                {ke()[0]}
-                            </kbd>
+                            <Kbd>{ke()[0]}</Kbd>
                             {ke()[1].desc}
                         </li>
                     )}

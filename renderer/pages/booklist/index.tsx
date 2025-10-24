@@ -18,6 +18,7 @@ import {
     showKeymapHelp,
     showSearchLine,
 } from '../../store'
+import Kbd from '../layout/keymapHelp/Kbd'
 import BookItem from './BookItem'
 
 const BookList: Component = () => {
@@ -95,11 +96,7 @@ const BookList: Component = () => {
             <header class='w-full flex flex-wrap items-end gap-2'>
                 <h1 class='text-2xl'>Recent Books</h1>
                 <span class='text-sub-fg text-sm italic'>
-                    Press{' '}
-                    <kbd class='border border-b-4 border-border rounded-sm py-0.5 px-1 not-italic'>
-                        Shift+/
-                    </kbd>{' '}
-                    to to get help with shortcut keys
+                    Press <Kbd>Shift+/</Kbd> to to get help with shortcut keys
                 </span>
             </header>
             <Show
